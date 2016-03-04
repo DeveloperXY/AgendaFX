@@ -1,16 +1,16 @@
-import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Map;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
  */
 public class Agenda {
-    private Map<LocalDateTime, RDV> map;
+    private Map<Date, RDV> map;
 
     public Agenda() {}
 
-    public Agenda(Map<LocalDateTime, RDV> map) {
+    public Agenda(Map<Date, RDV> map) {
         this.map.putAll(map);
     }
 
@@ -18,11 +18,11 @@ public class Agenda {
         map.putIfAbsent(rdv.getDate(), rdv);
     }
 
-    public void updateEntry(LocalDateTime time, RDV rdv) {
-        map.computeIfPresent(time, (t, r) -> r);
+    public void updateEntry(Date time, RDV rdv) {
+        map.put(time, rdv);
     }
 
-    public void removeEntry(LocalDateTime time) {
+    public void removeEntry(Date time) {
         map.remove(time);
     }
 
