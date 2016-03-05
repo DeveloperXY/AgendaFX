@@ -1,15 +1,16 @@
 import java.util.Scanner;
-import java.util.StringJoiner;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
  */
 public class App {
     private static Annuaire annuaire;
+    private static Agenda agenda;
     private static Scanner scanner;
 
     static {
         annuaire = new Annuaire();
+        agenda = new Agenda();
         scanner = new Scanner(System.in);
     }
 
@@ -106,6 +107,19 @@ public class App {
      * CRUD operations on the RDVs.
      */
     private static void manipulateAgenda() {
+        outer:
+        while (true) {
+            Console.showParticipantDirectoryOptions();
+            int choice = scanner.nextInt();
 
+            switch (choice) {
+                case 1:
+                    // View RDVs
+                    agenda.showAllRDVs();
+                    break;
+                case 2:
+                    break outer;
+            }
+        }
     }
 }

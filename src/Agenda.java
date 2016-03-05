@@ -8,8 +8,14 @@ import java.util.Map;
 public class Agenda {
     private Map<Date, RDV> map;
 
-    public Agenda() {}
+    public Agenda() {
+    }
 
+    /**
+     * @param map
+     *
+     * Overloaded constructor.
+     */
     public Agenda(Map<Date, RDV> map) {
         this.map.putAll(map);
     }
@@ -26,6 +32,19 @@ public class Agenda {
         map.remove(time);
     }
 
+    /**
+     * Prints the list of scheduled RDVs to the console.
+     */
+    public void showAllRDVs() {
+        map.forEach(
+                (date, rdv) -> String.format("Date: %s / RDV: %s",
+                        date, rdv)
+        );
+    }
+
+    /**
+     * @return a date-based comparator of RDVs.
+     */
     public static Comparator<RDV> getDateComparator() {
         return (o1, o2) -> o1.getDate().compareTo(o2.getDate());
     }

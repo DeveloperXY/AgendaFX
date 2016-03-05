@@ -3,11 +3,11 @@ import java.util.StringJoiner;
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
  * <p>
- * A utility class to print customised messages to the console.
+ * A utility class to print customised option menus to the console.
  */
 public class Console {
     /**
-     * Print customized message to the console.
+     * Prints the overall list of available options to the user.
      */
     public static void showOptions() {
         System.out.println(new StringJoiner("\n")
@@ -20,18 +20,22 @@ public class Console {
     }
 
     /**
-     * Print customized message to the console.
+     * Prints the overall list of available options to the user
+     * in order to manage the different CRUD operations on the RDVs' agenda.
      */
     public static void showAgendaOptions() {
         System.out.println(new StringJoiner("\n")
                 .add("*************************")
-                .add("1- View the list of all participants")
+                .add("1- View all scheduled RDVs")
+                .add("2- Return to the previous menu.")
                 .add("*************************")
         );
     }
 
     /**
-     * Print customized message to the console.
+     * Prints the overall list of available options to the user
+     * in order to manage the different CRUD operations on the
+     * participants' directory.
      */
     public static void showParticipantDirectoryOptions() {
         System.out.println(new StringJoiner("\n")
@@ -41,7 +45,7 @@ public class Console {
                 .add("3- Update a participant")
                 .add("4- Remove a certain participant")
                 .add("5- Remove all participants")
-                .add("6- Back to the Home menu.")
+                .add("6- Return to the previous menu.")
                 .add("*************************")
         );
     }
