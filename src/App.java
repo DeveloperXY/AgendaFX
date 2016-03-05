@@ -5,14 +5,18 @@ import java.util.StringJoiner;
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
  */
 public class App {
-    private static Annuaire annuaire = new Annuaire();
+    private static Annuaire annuaire;
+    private static Scanner scanner;
+
+    static {
+        annuaire = new Annuaire();
+        scanner = new Scanner(System.in);
+    }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
         outer:
         while (true) {
-            showOptions();
+            Console.showOptions();
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -32,7 +36,6 @@ public class App {
      * @return a string representing a certain user's first name.
      */
     private static String getUserFirstname() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Type in a first name:");
         return scanner.nextLine();
     }
@@ -41,8 +44,6 @@ public class App {
      * @return a new Participant based on user input.
      */
     private static Participant getNewParticipant() {
-        Scanner scanner = new Scanner(System.in);
-
         System.out.print("Firstname:\t");
         String firstname = scanner.nextLine();
         System.out.print("Lastname:\t");
@@ -57,12 +58,14 @@ public class App {
         return new Participant(firstname, lastname, phoneNumber, email, address);
     }
 
+    /**
+     * CRUD operations on the participants' directory.
+     */
     private static void manipulateDirectory() {
-        Scanner scanner = new Scanner(System.in);
 
         outer:
         while (true) {
-            showParticipantDirectoryOptions();
+            Console.showParticipantDirectoryOptions();
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -99,38 +102,10 @@ public class App {
         }
     }
 
+    /**
+     * CRUD operations on the RDVs.
+     */
     private static void manipulateAgenda() {
 
-    }
-
-    private static void showOptions() {
-        System.out.println(new StringJoiner("\n")
-                .add("*************************")
-                .add("1- The participants' directory.")
-                .add("2- The RDVs' agenda.")
-                .add("3- Quit the app.")
-                .add("*************************")
-        );
-    }
-
-    private static void showAgendaOptions() {
-        System.out.println(new StringJoiner("\n")
-                .add("*************************")
-                .add("1- View the list of all participants")
-                .add("*************************")
-        );
-    }
-
-    private static void showParticipantDirectoryOptions() {
-        System.out.println(new StringJoiner("\n")
-                .add("*************************")
-                .add("1- View the list of all participants")
-                .add("2- Add a new participant")
-                .add("3- Update a participant")
-                .add("4- Remove a certain participant")
-                .add("5- Remove all participants")
-                .add("6- Back to the Home menu.")
-                .add("*************************")
-        );
     }
 }
