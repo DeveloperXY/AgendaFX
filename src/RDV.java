@@ -1,5 +1,6 @@
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -49,5 +50,15 @@ public class RDV {
 
     public void setAddress(String address) {
         mAddress = address;
+    }
+
+    @Override
+    public String toString() {
+        return "RDV{" +
+                "mDate=" + mDate +
+                ", mDuration=" + mDuration.toMinutes() +
+                ", mParticipants=" + mParticipants +
+                ", mAddress='" + mAddress + '\'' +
+                '}';
     }
 }

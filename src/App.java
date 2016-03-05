@@ -125,6 +125,14 @@ public class App {
                     agenda.addEntry(rdv);
                     break;
                 case 3:
+
+                    break;
+                case 4:
+                    // Remove an RDV
+                    Date date = getNewDate(); // The date of the RDV to remove
+                    agenda.removeEntry(date);
+                    break;
+                case 5:
                     break outer;
             }
         }
@@ -143,6 +151,7 @@ public class App {
         // The names of the participants in this RDV
         System.out.println("How many participants in this RDV ?");
         int countOfParticipants = scanner.nextInt();
+        scanner.nextLine(); // Consume the trailing '\n'
         // A list of participants' names
         List<String> participants = new ArrayList<>();
 
@@ -182,7 +191,7 @@ public class App {
         int year = scanner.nextInt();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year + 1900, month, day);
+        calendar.set(year, month - 1, day, 0, 0, 0);
         return calendar.getTime();
     }
 }

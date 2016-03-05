@@ -27,6 +27,7 @@ public class Agenda {
 
     public void removeEntry(Date time) {
         map.remove(time);
+        System.out.println("Deletion: " + time);
     }
 
     /**
