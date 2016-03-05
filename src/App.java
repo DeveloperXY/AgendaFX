@@ -1,4 +1,6 @@
-import java.util.Scanner;
+import java.time.Duration;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
@@ -109,7 +111,7 @@ public class App {
     private static void manipulateAgenda() {
         outer:
         while (true) {
-            Console.showParticipantDirectoryOptions();
+            Console.showAgendaOptions();
             int choice = scanner.nextInt();
 
             switch (choice) {
@@ -118,8 +120,69 @@ public class App {
                     agenda.showAllRDVs();
                     break;
                 case 2:
+                    // Add a new RDV
+                    RDV rdv = getNewRDV();
+                    agenda.addEntry(rdv);
+                    break;
+                case 3:
                     break outer;
             }
         }
+    }
+
+    private static RDV getNewRDV() {
+        // The RDV's date
+        System.out.println("The RDV's date:");
+        Date date = getNewDate();
+
+        // The RDV's duration, in minutes
+        System.out.println("The RDV's duration: (in minutes)");
+        int minutes = scanner.nextInt();
+        Duration duration = Duration.ofMinutes(minutes);
+
+        // The names of the participants in this RDV
+        System.out.println("How many participants in this RDV ?");
+        int countOfParticipants = scanner.nextInt();
+        // A list of participants' names
+        List<String> participants = new ArrayList<>();
+
+        for (int i = 0; i < countOfParticipants; i++) {
+            System.out.println("Participant " + (i + 1));
+            participants.add(getNewParticipantName());
+        }
+
+        // The RDV's address
+        String address = getNewAddress();
+
+        return new RDV(
+                date,
+                duration,
+                participants.stream()
+                        .map(annuaire::getParticipant)
+                        .collect(Collectors.toList()),
+                address);
+    }
+
+    private static String getNewParticipantName() {
+        System.out.println("Participant's name:");
+        return scanner.nextLine();
+    }
+
+    private static String getNewAddress() {
+        System.out.println("The RDV's address:");
+        return scanner.nextLine();
+    }
+
+    private static Date getNewDate() {
+        System.out.print("Day: ");
+        int day = scanner.nextInt();
+        System.out.print("Month: ");
+        int month = scanner.nextInt();
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year + 1900, month, day);
+        return calendar.getTime();
     }
 }

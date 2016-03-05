@@ -27,7 +27,8 @@ public class Console {
         System.out.println(new StringJoiner("\n")
                 .add("*************************")
                 .add("1- View all scheduled RDVs")
-                .add("2- Return to the previous menu.")
+                .add("2- Add a new RDV")
+                .add("3- Return to the previous menu.")
                 .add("*************************")
         );
     }

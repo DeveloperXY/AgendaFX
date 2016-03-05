@@ -44,6 +44,14 @@ public class Annuaire {
 
     /**
      * @param name
+     * @return the participant associated with this name.
+     */
+    public Participant getParticipant(String name) {
+        return map.get(name);
+    }
+
+    /**
+     * @param name
      * @param participant UPDATE
      */
     public void modifyParticipant(String name, Participant participant) {
