@@ -1,5 +1,6 @@
-import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
@@ -87,6 +88,7 @@ public class Annuaire {
 
         map.forEach((n, p) ->
                 System.out.println(String.format("%s - %s", n, p)));
+        System.out.println(Console.CONSOLE_LINE_SEPARATOR);
     }
 
     /**

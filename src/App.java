@@ -95,8 +95,7 @@ public class App {
                     if (annuaire.containsParticipant(key)) {
                         Participant p = getNewParticipant();
                         annuaire.modifyParticipant(key, p);
-                    }
-                    else {
+                    } else {
                         // Participant does not exist
                         Console.clearConsole();
                         System.out.println("The first name you typed does not exist." + Console.CONSOLE_LINE_SEPARATOR);
@@ -160,13 +159,12 @@ public class App {
 
         // The RDV's duration, in minutes
         System.out.println("The RDV's duration: (in minutes)");
-        int minutes = scanner.nextInt();
+        int minutes = Integer.parseInt(scanner.nextLine());
         Duration duration = Duration.ofMinutes(minutes);
 
         // The names of the participants in this RDV
         System.out.println("How many participants in this RDV ?");
-        int countOfParticipants = scanner.nextInt();
-        scanner.nextLine(); // Consume the trailing '\n'
+        int countOfParticipants = Integer.parseInt(scanner.nextLine());
         // A list of participants' names
         List<String> participants = new ArrayList<>();
 
@@ -199,11 +197,11 @@ public class App {
 
     private static Date getNewDate() {
         System.out.print("Day: ");
-        int day = scanner.nextInt();
+        int day = Integer.parseInt(scanner.nextLine());
         System.out.print("Month: ");
-        int month = scanner.nextInt();
+        int month = Integer.parseInt(scanner.nextLine());
         System.out.print("Year: ");
-        int year = scanner.nextInt();
+        int year = Integer.parseInt(scanner.nextLine());
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month - 1, day, 0, 0, 0);
