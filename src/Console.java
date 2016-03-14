@@ -1,7 +1,5 @@
 import java.io.IOException;
 import java.util.StringJoiner;
-import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
@@ -9,6 +7,12 @@ import java.util.concurrent.FutureTask;
  * A utility class to print customised option menus to the console.
  */
 public class Console {
+
+    /**
+     * A custom console separator between lines.
+     */
+    public static final String CONSOLE_LINE_SEPARATOR = "\n\n\n";
+
     /**
      * Prints the overall list of available options to the user.
      */
@@ -62,6 +66,6 @@ public class Console {
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
-        System.out.println("\n\n\n");
+        System.out.println(CONSOLE_LINE_SEPARATOR);
     }
 }

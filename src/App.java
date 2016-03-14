@@ -23,7 +23,7 @@ public class App {
         outer:
         while (true) {
             Console.showOptions();
-            int choice = scanner.nextInt();
+            int choice = Integer.parseInt(scanner.nextLine());
 
             Console.clearConsole();
             switch (choice) {
@@ -73,7 +73,7 @@ public class App {
         outer:
         while (true) {
             Console.showParticipantDirectoryOptions();
-            int choice = scanner.nextInt();
+            int choice = Integer.parseInt(scanner.nextLine());
             Console.clearConsole();
 
             switch (choice) {
@@ -85,13 +85,22 @@ public class App {
                     // Add a new participant
                     Participant p = getNewParticipant();
                     annuaire.addParticipant(p);
+                    Console.clearConsole();
+                    System.out.println("Participant successfully added." + Console.CONSOLE_LINE_SEPARATOR);
                 }
                 break;
                 case 3: {
                     // Update a certain participant
                     String key = getUserFirstname();
-                    Participant p = getNewParticipant();
-                    annuaire.modifyParticipant(key, p);
+                    if (annuaire.containsParticipant(key)) {
+                        Participant p = getNewParticipant();
+                        annuaire.modifyParticipant(key, p);
+                    }
+                    else {
+                        // Participant does not exist
+                        Console.clearConsole();
+                        System.out.println("The first name you typed does not exist." + Console.CONSOLE_LINE_SEPARATOR);
+                    }
                 }
                 break;
                 case 4: {
@@ -117,7 +126,7 @@ public class App {
         outer:
         while (true) {
             Console.showAgendaOptions();
-            int choice = scanner.nextInt();
+            int choice = Integer.parseInt(scanner.nextLine());
             Console.clearConsole();
 
             switch (choice) {

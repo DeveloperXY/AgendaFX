@@ -89,6 +89,14 @@ public class Annuaire {
                 System.out.println(String.format("%s - %s", n, p)));
     }
 
+    /**
+     * @param firstname of the participant to check
+     * @return true if the participant exists, false otherwise.
+     */
+    public boolean containsParticipant(String firstname) {
+        return map.containsKey(firstname);
+    }
+
     @Override
     public String toString() {
         return "Annuaire{" +
