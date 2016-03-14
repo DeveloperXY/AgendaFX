@@ -1,4 +1,7 @@
+import java.io.IOException;
 import java.util.StringJoiner;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
@@ -51,5 +54,14 @@ public class Console {
                 .add("6- Return to the previous menu.")
                 .add("*************************")
         );
+    }
+
+    public static void clearConsole() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("\n\n\n");
     }
 }

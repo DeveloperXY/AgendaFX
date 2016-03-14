@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -80,7 +81,7 @@ public class Annuaire {
 
     public void showAllParticipants() {
         if (map.size() == 0) {
-            System.out.println("There are no participants to show.");
+            System.out.println("There are no participants to show.\n\n\n");
             return;
         }
 

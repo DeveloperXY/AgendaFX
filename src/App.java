@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,12 +17,15 @@ public class App {
         scanner = new Scanner(System.in);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Console.clearConsole();
+
         outer:
         while (true) {
             Console.showOptions();
             int choice = scanner.nextInt();
 
+            Console.clearConsole();
             switch (choice) {
                 case 1:
                     manipulateDirectory();
@@ -70,6 +74,7 @@ public class App {
         while (true) {
             Console.showParticipantDirectoryOptions();
             int choice = scanner.nextInt();
+            Console.clearConsole();
 
             switch (choice) {
                 case 1:
@@ -113,6 +118,7 @@ public class App {
         while (true) {
             Console.showAgendaOptions();
             int choice = scanner.nextInt();
+            Console.clearConsole();
 
             switch (choice) {
                 case 1:
