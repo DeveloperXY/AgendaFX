@@ -73,7 +73,16 @@ public class App {
         outer:
         while (true) {
             Console.showParticipantDirectoryOptions();
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice;
+
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                Console.clearConsole();
+                System.out.println("Not a valid command." + Console.CONSOLE_LINE_SEPARATOR);
+                continue;
+            }
+
             Console.clearConsole();
 
             switch (choice) {
@@ -103,14 +112,23 @@ public class App {
                 }
                 break;
                 case 4: {
+                    Console.clearConsole();
+
                     // Remove a participant
                     String name = getUserFirstname();
-                    annuaire.removeParticipant(name);
+                    if (annuaire.containsParticipant(name)) {
+                        annuaire.removeParticipant(name);
+                        System.out.println("\n---------> Participant successfully removed." + Console.CONSOLE_LINE_SEPARATOR);
+                    } else
+                        System.out.println("(!) There is no user associated " +
+                                "with the user name you typed." + Console.CONSOLE_LINE_SEPARATOR);
                 }
                 break;
                 case 5:
                     // Remove all participants
                     annuaire.removeAllParticipants();
+                    Console.clearConsole();
+                    System.out.println("All participants were cleared." + Console.CONSOLE_LINE_SEPARATOR);
                     break;
                 case 6:
                     break outer;
