@@ -60,6 +60,9 @@ public class Console {
         );
     }
 
+    /**
+     * Clears the console's screen.
+     */
     public static void clearConsole() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();

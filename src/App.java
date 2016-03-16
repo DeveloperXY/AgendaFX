@@ -167,6 +167,8 @@ public class App {
                     // Remove an RDV
                     Date date = getNewDate(); // The date of the RDV to remove
                     agenda.removeEntry(date);
+                    Console.clearConsole();
+                    System.out.println("Date objects are mutable." + Console.CONSOLE_LINE_SEPARATOR);
                     break;
                 case 5:
                     break outer;
@@ -203,6 +205,7 @@ public class App {
                 duration,
                 participants.stream()
                         .map(annuaire::getParticipant)
+                        .filter(Objects::nonNull)
                         .collect(Collectors.toList()),
                 address);
     }

@@ -21,6 +21,13 @@ public class Agenda {
     }
 
     public void addEntry(RDV rdv) {
+        if (rdv.getParticipants().size() == 0) {
+            Console.clearConsole();
+            System.out.println("Invalid participant(s) name(s).");
+            System.out.println("Creating RDV discarded." + Console.CONSOLE_LINE_SEPARATOR);
+            return;
+        }
+
         map.putIfAbsent(rdv.getDate(), rdv);
     }
 
@@ -29,7 +36,8 @@ public class Agenda {
     }
 
     public void removeEntry(Date time) {
-        map.remove(time);
+        System.out.println("Equals: " + map.get(time) + " - " + time);
+        System.out.println("Removed: " + map.remove(time));
         System.out.println("Deletion: " + time);
     }
 
@@ -38,7 +46,7 @@ public class Agenda {
      */
     public void showAllRDVs() {
         if (map.size() == 0) {
-            System.out.println("There are no RDVs to show.");
+            System.out.println("There are no RDVs to show." + Console.CONSOLE_LINE_SEPARATOR);
             return;
         }
 
@@ -46,6 +54,8 @@ public class Agenda {
                 (date, rdv) -> System.out.println(
                         String.format("Date: %s / RDV: %s", date, rdv))
         );
+
+        System.out.println(Console.CONSOLE_LINE_SEPARATOR);
     }
 
     /**
