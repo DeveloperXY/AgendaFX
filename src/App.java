@@ -104,6 +104,8 @@ public class App {
                     if (annuaire.containsParticipant(key)) {
                         Participant p = getNewParticipant();
                         annuaire.modifyParticipant(key, p);
+                        Console.clearConsole();
+                        System.out.println("Participant successfully updated." + Console.CONSOLE_LINE_SEPARATOR);
                     } else {
                         // Participant does not exist
                         Console.clearConsole();
@@ -118,8 +120,10 @@ public class App {
                     String name = getUserFirstname();
                     if (annuaire.containsParticipant(name)) {
                         annuaire.removeParticipant(name);
+                        Console.clearConsole();
                         System.out.println("\n---------> Participant successfully removed." + Console.CONSOLE_LINE_SEPARATOR);
                     } else
+                        Console.clearConsole();
                         System.out.println("(!) There is no user associated " +
                                 "with the user name you typed." + Console.CONSOLE_LINE_SEPARATOR);
                 }

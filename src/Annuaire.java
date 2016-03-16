@@ -57,7 +57,8 @@ public class Annuaire {
      * @param participant UPDATE
      */
     public void modifyParticipant(String name, Participant participant) {
-        map.computeIfPresent(name, (n, p) -> participant);
+        map.remove(name);
+        addParticipant(participant);
     }
 
     /**
