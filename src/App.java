@@ -1,7 +1,6 @@
 import java.io.IOException;
-import java.time.Duration;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Date;
+import java.util.Scanner;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
@@ -39,31 +38,6 @@ public class App {
         }
     }
 
-    /**
-     * @return a string representing a certain user's first name.
-     */
-    private static String getUserFirstname() {
-        System.out.println("Type in a first name:");
-        return scanner.nextLine();
-    }
-
-    /**
-     * @return a new Participant based on user input.
-     */
-    private static Participant getNewParticipant() {
-        System.out.print("Firstname:\t");
-        String firstname = scanner.nextLine();
-        System.out.print("Lastname:\t");
-        String lastname = scanner.nextLine();
-        System.out.print("Phone number:\t");
-        String phoneNumber = scanner.nextLine();
-        System.out.print("Email:\t");
-        String email = scanner.nextLine();
-        System.out.print("Address:\t");
-        String address = scanner.nextLine();
-
-        return new Participant(firstname, lastname, phoneNumber, email, address);
-    }
 
     /**
      * CRUD operations on the participants' directory.
@@ -92,7 +66,7 @@ public class App {
                     break;
                 case 2: {
                     // Add a new participant
-                    Participant p = getNewParticipant();
+                    Participant p = Inputs.getNewParticipant();
                     annuaire.addParticipant(p);
                     Console.clearConsole();
                     System.out.println("Participant successfully added." + Console.CONSOLE_LINE_SEPARATOR);
@@ -100,9 +74,9 @@ public class App {
                 break;
                 case 3: {
                     // Update a certain participant
-                    String key = getUserFirstname();
+                    String key = Inputs.getUserFirstname();
                     if (annuaire.containsParticipant(key)) {
-                        Participant p = getNewParticipant();
+                        Participant p = Inputs.getNewParticipant();
                         annuaire.modifyParticipant(key, p);
                         Console.clearConsole();
                         System.out.println("Participant successfully updated." + Console.CONSOLE_LINE_SEPARATOR);
@@ -117,15 +91,15 @@ public class App {
                     Console.clearConsole();
 
                     // Remove a participant
-                    String name = getUserFirstname();
+                    String name = Inputs.getUserFirstname();
                     if (annuaire.containsParticipant(name)) {
                         annuaire.removeParticipant(name);
                         Console.clearConsole();
                         System.out.println("\n---------> Participant successfully removed." + Console.CONSOLE_LINE_SEPARATOR);
                     } else
                         Console.clearConsole();
-                        System.out.println("(!) There is no user associated " +
-                                "with the user name you typed." + Console.CONSOLE_LINE_SEPARATOR);
+                    System.out.println("(!) There is no user associated " +
+                            "with the user name you typed." + Console.CONSOLE_LINE_SEPARATOR);
                 }
                 break;
                 case 5:
@@ -157,7 +131,7 @@ public class App {
                     break;
                 case 2:
                     // Add a new RDV
-                    RDV rdv = getNewRDV();
+                    RDV rdv = Inputs.getNewRDV(annuaire);
                     agenda.addEntry(rdv);
                     break;
                 case 3:
@@ -165,7 +139,7 @@ public class App {
                     break;
                 case 4:
                     // Remove an RDV
-                    Date date = getNewDate(); // The date of the RDV to remove
+                    Date date = Inputs.getNewDate(); // The date of the RDV to remove
                     agenda.removeEntry(date);
                     Console.clearConsole();
                     System.out.println("Date objects are mutable." + Console.CONSOLE_LINE_SEPARATOR);
@@ -174,62 +148,5 @@ public class App {
                     break outer;
             }
         }
-    }
-
-    private static RDV getNewRDV() {
-        // The RDV's date
-        System.out.println("The RDV's date:");
-        Date date = getNewDate();
-
-        // The RDV's duration, in minutes
-        System.out.println("The RDV's duration: (in minutes)");
-        int minutes = Integer.parseInt(scanner.nextLine());
-        Duration duration = Duration.ofMinutes(minutes);
-
-        // The names of the participants in this RDV
-        System.out.println("How many participants in this RDV ?");
-        int countOfParticipants = Integer.parseInt(scanner.nextLine());
-        // A list of participants' names
-        List<String> participants = new ArrayList<>();
-
-        for (int i = 0; i < countOfParticipants; i++) {
-            System.out.println("Participant " + (i + 1));
-            participants.add(getNewParticipantName());
-        }
-
-        // The RDV's address
-        String address = getNewAddress();
-
-        return new RDV(
-                date,
-                duration,
-                participants.stream()
-                        .map(annuaire::getParticipant)
-                        .filter(Objects::nonNull)
-                        .collect(Collectors.toList()),
-                address);
-    }
-
-    private static String getNewParticipantName() {
-        System.out.println("Participant's name:");
-        return scanner.nextLine();
-    }
-
-    private static String getNewAddress() {
-        System.out.println("The RDV's address:");
-        return scanner.nextLine();
-    }
-
-    private static Date getNewDate() {
-        System.out.print("Day: ");
-        int day = Integer.parseInt(scanner.nextLine());
-        System.out.print("Month: ");
-        int month = Integer.parseInt(scanner.nextLine());
-        System.out.print("Year: ");
-        int year = Integer.parseInt(scanner.nextLine());
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month - 1, day, 0, 0, 0);
-        return calendar.getTime();
     }
 }
