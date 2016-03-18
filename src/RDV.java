@@ -50,6 +50,12 @@ public class RDV {
         mAddress = address;
     }
 
+    public boolean isParticipant(String participantName) {
+        return mParticipants.stream()
+                .map(Participant::getFirstname)
+                .anyMatch(name -> name.equals(participantName));
+    }
+
     @Override
     public String toString() {
         return "RDV{" +

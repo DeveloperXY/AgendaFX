@@ -1,4 +1,5 @@
 import java.time.Duration;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,10 @@ import java.util.stream.Collectors;
 public class Inputs {
 
     private static Scanner scanner;
+
+    static {
+        scanner = new Scanner(System.in);
+    }
 
     /**
      * @return a string representing a certain user's first name.
@@ -81,7 +86,11 @@ public class Inputs {
         return scanner.nextLine();
     }
 
-    public static Date getNewDate() {
+    public static Date getNewDate(String... message) {
+
+        if (message != null && message.length != 0)
+            System.out.println(message[0] + Console.CONSOLE_LINE_SEPARATOR);
+
         System.out.print("Day: ");
         int day = Integer.parseInt(scanner.nextLine());
         System.out.print("Month: ");

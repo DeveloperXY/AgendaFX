@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -33,8 +34,8 @@ public class App {
                     manipulateAgenda();
                     break;
                 case 3:
-                    break outer;
-            }
+            break outer;
+        }
         }
     }
 
@@ -135,16 +136,49 @@ public class App {
                     agenda.addEntry(rdv);
                     break;
                 case 3:
+                    if (agenda.isClear()) {
+                        Console.clearConsole();
+                        System.out.println("The agenda is clear." + Console.CONSOLE_LINE_SEPARATOR);
+                    } else {
+                        Date start = Inputs.getNewDate("Starting date:");
+                        Date end = Inputs.getNewDate("Ending date:");
 
+                        Console.clearConsole();
+
+                        List<RDV> rdvs = agenda.getRDVs(start, end);
+                        if (rdvs == null || rdvs.size() == 0) {
+                            System.out.println("There are no RDVs scheduled in this period." +
+                                    Console.CONSOLE_LINE_SEPARATOR);
+                        } else {
+                            rdvs.stream()
+                                    .forEach(rd -> System.out.println(rd + "\n-------------" +
+                                            Console.CONSOLE_LINE_SEPARATOR));
+                        }
+                    }
                     break;
                 case 4:
+                    Date startDate = Inputs.getNewDate("Starting date:");
+                    Date endDate = Inputs.getNewDate("Ending date:");
+
+                    String participant = Inputs.getNewParticipantName();
+                    List<RDV> rdvList = agenda.getParticipantRDVs(participant, startDate, endDate);
+
+                    Console.clearConsole();
+
+                    if (rdvList == null || rdvList.size() == 0)
+                        System.out.println("There are no RDVs scheduled for this " +
+                                "participant in this period." + Console.CONSOLE_LINE_SEPARATOR);
+                    else
+                        rdvList.stream()
+                                .forEach(rd -> System.out.println(rd + "\n-------------" +
+                                        Console.CONSOLE_LINE_SEPARATOR));
+                    break;
+                case 5:
                     // Remove an RDV
                     Date date = Inputs.getNewDate(); // The date of the RDV to remove
                     agenda.removeEntry(date);
-                    Console.clearConsole();
-                    System.out.println("Date objects are mutable." + Console.CONSOLE_LINE_SEPARATOR);
                     break;
-                case 5:
+                case 6:
                     break outer;
             }
         }

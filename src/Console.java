@@ -35,9 +35,10 @@ public class Console {
                 .add("*************************")
                 .add("1- View all scheduled RDVs")
                 .add("2- Add a new RDV")
-                .add("3- Update a certain RDV")
-                .add("4- Remove an RDV")
-                .add("5- Return to the previous menu.")
+                .add("3- Show all RDVs between 2 dates (sorted).")
+                .add("4- Show all RDVs of a certain participant between 2 dates.")
+                .add("5- Remove an RDV")
+                .add("6- Return to the previous menu.")
                 .add("*************************")
         );
     }
