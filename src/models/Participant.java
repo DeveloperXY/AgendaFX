@@ -1,3 +1,5 @@
+package models;
+
 /**
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
  */

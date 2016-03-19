@@ -1,5 +1,10 @@
+package console;
+
+import models.Annuaire;
+import models.Participant;
+import models.RDV;
+
 import java.time.Duration;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 

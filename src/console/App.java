@@ -1,3 +1,9 @@
+package console;
+
+import models.Annuaire;
+import models.Participant;
+import models.RDV;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;

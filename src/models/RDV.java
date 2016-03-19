@@ -1,3 +1,5 @@
+package models;
+
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
