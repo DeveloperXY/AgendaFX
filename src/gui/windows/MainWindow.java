@@ -1,5 +1,6 @@
-package gui;
+package gui.windows;
 
+import gui.controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,6 +23,8 @@ public class MainWindow extends Application {
      */
     private BorderPane mBorderPane;
 
+    private MainController mainController;
+
     @Override
     public void start(Stage stage) throws Exception {
         mPrimaryStage = stage;
@@ -34,6 +37,13 @@ public class MainWindow extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/layout/main_window.fxml"));
         mBorderPane = loader.load();
+        mainController = loader.getController();
+        mainController.setOwnerStage(mPrimaryStage);
+
+        mPrimaryStage.setOnCloseRequest(e -> {
+            e.consume();
+            mainController.onClose();
+        });
     }
 
     private void setupStage() {
