@@ -3,6 +3,7 @@ package gui.controllers;
 import gui.listeners.DataBridge;
 import gui.listeners.LoadListener;
 import gui.listeners.SaveListener;
+import gui.models.ObsParticipant;
 import gui.windows.ParticipantDialog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -15,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import gui.models.ObsParticipant;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -79,15 +79,11 @@ public class DirectoryController extends BaseController implements DataBridge {
         disableDeleteBtnState = new SimpleBooleanProperty(true);
         participantsData = FXCollections.observableArrayList();
         participantsData.addListener((ListChangeListener<ObsParticipant>) c -> {
-            System.out.println("CHANGE 1");
             while (c.next()) {
-                System.out.println("CHANGE 2");
                 if (c.wasAdded()) {
-                    System.out.println("CHANGE 3");
                     if (disableDeleteBtnState.get())
                         disableDeleteBtnState.setValue(false);
-                }
-                else if(c.wasRemoved()) {
+                } else if (c.wasRemoved()) {
                     if (!disableDeleteBtnState.get())
                         disableDeleteBtnState.setValue(true);
                 }
@@ -144,17 +140,23 @@ public class DirectoryController extends BaseController implements DataBridge {
         executor.shutdown();
     }
 
+    /**
+     * Invoked when the "Delete entry" button is pressed.
+     */
     @FXML
     public void onDeleteParticipant() {
         int selectedIndex = participantsTable.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0) {
-
+            participantsTable.getItems().remove(selectedIndex);
         } else {
-
+            System.out.println("No participant is selected.");
         }
     }
 
+    /**
+     * Invoked when the "Exit" button of the directory window is pressed.
+     */
     @FXML
     public void onExitDirectory() {
         saveListener.saveParticipants(participantsTable.getItems());
