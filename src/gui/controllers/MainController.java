@@ -2,6 +2,7 @@ package gui.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -38,5 +39,13 @@ public class MainController {
         Optional<ButtonType> type = alert.showAndWait();
         if (type.get().equals(ButtonType.OK))
             Platform.exit();
+    }
+
+    /**
+     * Opens up a new window, showing the participants' directory.
+     */
+    @FXML
+    public void onShowDirectory() {
+
     }
 }
