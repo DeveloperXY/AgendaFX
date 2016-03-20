@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import gui.windows.ParticipantsWindow;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 import java.util.Optional;
 
 /**
- * Created by Moham on 19/03/2016.
+ * Created by Mohammed Aouf ZOUAG on 19/03/2016.
  */
 public class RDVController {
 
@@ -46,6 +47,6 @@ public class RDVController {
      */
     @FXML
     public void onShowDirectory() {
-
+        new ParticipantsWindow().show();
     }
 }

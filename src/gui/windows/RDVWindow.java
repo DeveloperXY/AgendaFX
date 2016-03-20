@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Created by Moham on 19/03/2016.
+ * Created by Mohammed Aouf ZOUAG on 19/03/2016.
  */
 public class RDVWindow extends Application {
 
