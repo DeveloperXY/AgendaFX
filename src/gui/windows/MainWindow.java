@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,9 +20,9 @@ public class MainWindow extends Application {
      */
     private Stage mPrimaryStage;
     /**
-     * The BorderPane assembling the components of the main UI.
+     * The VBox assembling the components of the main UI.
      */
-    private BorderPane mBorderPane;
+    private VBox mBox;
 
     private MainController mainController;
 
@@ -35,8 +36,8 @@ public class MainWindow extends Application {
 
     private void initMainWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/layout/main_window.fxml"));
-        mBorderPane = loader.load();
+        loader.setLocation(getClass().getResource("/gui/layout/fxml/main_window.fxml"));
+        mBox = loader.load();
         mainController = loader.getController();
         mainController.setOwnerStage(mPrimaryStage);
 
@@ -47,7 +48,7 @@ public class MainWindow extends Application {
     }
 
     private void setupStage() {
-        mPrimaryStage.setScene(new Scene(mBorderPane));
+        mPrimaryStage.setScene(new Scene(mBox));
         mPrimaryStage.setTitle("AgendaFX");
         mPrimaryStage.show();
     }
