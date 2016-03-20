@@ -2,7 +2,6 @@ package gui.windows;
 
 import gui.controllers.AddParticipantController;
 import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
@@ -12,6 +11,8 @@ public class ParticipantDialog extends CustomWindow {
 
     public ParticipantDialog(Window window) {
         this("Add a new participant", "add_participant_dialog.fxml");
+
+        setResizable(false);
 
         initModality(Modality.WINDOW_MODAL);
         initOwner(window);
