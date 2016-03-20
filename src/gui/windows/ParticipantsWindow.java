@@ -1,6 +1,7 @@
 package gui.windows;
 
 import gui.controllers.DirectoryController;
+import gui.listeners.DataBridge;
 import gui.listeners.LoadListener;
 import gui.listeners.SaveListener;
 import javafx.collections.FXCollections;
@@ -10,7 +11,7 @@ import gui.models.ObsParticipant;
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
  */
-public class ParticipantsWindow extends CustomWindow {
+public class ParticipantsWindow extends CustomWindow implements DataBridge {
 
     private SaveListener saveListener;
     private LoadListener loadListener;

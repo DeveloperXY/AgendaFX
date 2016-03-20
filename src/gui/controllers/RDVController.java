@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import gui.listeners.DataBridge;
 import gui.listeners.LoadListener;
 import gui.listeners.SaveListener;
 import gui.windows.ParticipantsWindow;
@@ -15,7 +16,7 @@ import java.util.Optional;
  * <p>
  * The controller in charge of the RDVWindow.
  */
-public class RDVController extends BaseController {
+public class RDVController extends BaseController implements DataBridge {
 
     private SaveListener saveListener;
     private LoadListener loadListener;

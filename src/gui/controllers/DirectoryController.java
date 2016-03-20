@@ -1,12 +1,17 @@
 package gui.controllers;
 
+import gui.listeners.DataBridge;
 import gui.listeners.LoadListener;
 import gui.listeners.SaveListener;
 import gui.windows.ParticipantDialog;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,11 +26,19 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * The controller in charge of the ParticipantsWindow.
  */
-public class DirectoryController extends BaseController {
+public class DirectoryController extends BaseController implements DataBridge {
 
     private LoadListener loadListener;
     private SaveListener saveListener;
+    /**
+     * The data of the participants' TableView.
+     */
     private ObservableList<ObsParticipant> participantsData;
+    /**
+     * A boolean property to whom the 'disableProperty' of the
+     * "Delete entry" button is bound.
+     */
+    private BooleanProperty disableDeleteBtnState;
 
     @FXML
     private TableView<ObsParticipant> participantsTable;
@@ -59,12 +72,35 @@ public class DirectoryController extends BaseController {
     private Label statusLabel;
 
     @FXML
+    private Button deleteParticipantBtn;
+
+    @FXML
     private void initialize() {
+        disableDeleteBtnState = new SimpleBooleanProperty(true);
+        participantsData = FXCollections.observableArrayList();
+        participantsData.addListener((ListChangeListener<ObsParticipant>) c -> {
+            System.out.println("CHANGE 1");
+            while (c.next()) {
+                System.out.println("CHANGE 2");
+                if (c.wasAdded()) {
+                    System.out.println("CHANGE 3");
+                    if (disableDeleteBtnState.get())
+                        disableDeleteBtnState.setValue(false);
+                }
+                else if(c.wasRemoved()) {
+                    if (!disableDeleteBtnState.get())
+                        disableDeleteBtnState.setValue(true);
+                }
+            }
+        });
+
         firstnameColumn.setCellValueFactory(cell -> cell.getValue().firstnameProperty());
         lastnameColumn.setCellValueFactory(cell -> cell.getValue().lastnameProperty());
         phoneNumberColumn.setCellValueFactory(cell -> cell.getValue().phoneNumberProperty());
         emailColumn.setCellValueFactory(cell -> cell.getValue().emailProperty());
         addressColumn.setCellValueFactory(cell -> cell.getValue().addressProperty());
+
+        deleteParticipantBtn.disableProperty().bind(disableDeleteBtnState);
     }
 
     /**
@@ -73,8 +109,9 @@ public class DirectoryController extends BaseController {
      * @param participantsData
      */
     public void setParticipantsData(ObservableList<ObsParticipant> participantsData) {
-        this.participantsData = participantsData != null ? participantsData :
-                FXCollections.observableArrayList();
+        if (participantsData != null)
+            this.participantsData = participantsData;
+
         participantsTable.setItems(this.participantsData);
     }
 
@@ -85,7 +122,7 @@ public class DirectoryController extends BaseController {
     public void onAddParticipant() {
         ParticipantDialog window = new ParticipantDialog(mStage);
         window.setAddListener(participant -> {
-            participantsTable.getItems().add(participant);
+            participantsData.add(participant);
 
             // Scroll down to the last item after inserting it
             participantsTable.scrollTo(participantsTable.getItems().size());
@@ -109,7 +146,13 @@ public class DirectoryController extends BaseController {
 
     @FXML
     public void onDeleteParticipant() {
+        int selectedIndex = participantsTable.getSelectionModel().getSelectedIndex();
 
+        if (selectedIndex >= 0) {
+
+        } else {
+
+        }
     }
 
     @FXML

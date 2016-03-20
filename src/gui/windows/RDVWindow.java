@@ -17,8 +17,8 @@ import java.io.IOException;
  * This class represents the starting point of the application.
  *
  * It makes use of 2 functional interfaces, 'LoadListener' and 'SaveListener'.
- * All the other classes who implement these 2 interfaces are "bridges" in order
- * to communicate with this class.
+ * All the other classes who implement these 2 interfaces are "bridges" who
+ * represent a mean of communication with this class.
  *
  * In order to persist the participants' data, their initial data source will be
  * stored here in this class as @mParticipants; this is the instance concerned
@@ -76,7 +76,7 @@ public class RDVWindow extends Application {
 
     private void setupStage() {
         mPrimaryStage.setScene(new Scene(mBox));
-        mPrimaryStage.setTitle("AgendaFX");
+        mPrimaryStage.setTitle("Scheduled RDVs");
         mPrimaryStage.show();
     }
 }
