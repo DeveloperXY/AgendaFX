@@ -1,10 +1,9 @@
 package gui.windows;
 
-import gui.controllers.MainController;
+import gui.controllers.RDVController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -13,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by Moham on 19/03/2016.
  */
-public class MainWindow extends Application {
+public class RDVWindow extends Application {
 
     /**
      * The primary stage of this window.
@@ -24,7 +23,7 @@ public class MainWindow extends Application {
      */
     private VBox mBox;
 
-    private MainController mainController;
+    private RDVController RDVController;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -36,14 +35,14 @@ public class MainWindow extends Application {
 
     private void initMainWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/layout/fxml/main_window.fxml"));
+        loader.setLocation(getClass().getResource("/gui/layout/fxml/rdv_window.fxml"));
         mBox = loader.load();
-        mainController = loader.getController();
-        mainController.setOwnerStage(mPrimaryStage);
+        RDVController = loader.getController();
+        RDVController.setOwnerStage(mPrimaryStage);
 
         mPrimaryStage.setOnCloseRequest(e -> {
             e.consume();
-            mainController.onClose();
+            RDVController.onClose();
         });
     }
 

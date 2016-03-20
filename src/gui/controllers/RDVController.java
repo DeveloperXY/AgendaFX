@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Created by Moham on 19/03/2016.
  */
-public class MainController {
+public class RDVController {
 
     /**
      * The owner stage.
@@ -23,7 +23,7 @@ public class MainController {
         mStage = stage;
     }
 
-    public MainController() {
+    public RDVController() {
     }
 
     /**
