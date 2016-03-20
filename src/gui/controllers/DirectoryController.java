@@ -9,15 +9,7 @@ import javafx.stage.Stage;
  * <p>
  * The controller in charge of the ParticipantsWindow.
  */
-public class DirectoryController {
-    /**
-     * The owner stage.
-     */
-    private Stage mStage;
-
-    public void setOwnerStage(Stage stage) {
-        mStage = stage;
-    }
+public class DirectoryController extends BaseController {
 
     /**
      * Adds a new participant to the directory.

@@ -14,16 +14,7 @@ import java.util.Optional;
  * <p>
  * The controller in charge of the RDVWindow.
  */
-public class RDVController {
-
-    /**
-     * The owner stage.
-     */
-    private Stage mStage;
-
-    public void setOwnerStage(Stage stage) {
-        mStage = stage;
-    }
+public class RDVController extends BaseController {
 
     /**
      * Closes the app, when clicking on the "Close" menu item.
