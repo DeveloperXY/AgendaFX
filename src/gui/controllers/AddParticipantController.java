@@ -3,7 +3,7 @@ package gui.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import models.observable.ObsParticipant;
+import gui.models.ObsParticipant;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.

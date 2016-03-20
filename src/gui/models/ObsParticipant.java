@@ -1,4 +1,4 @@
-package models.observable;
+package gui.models;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

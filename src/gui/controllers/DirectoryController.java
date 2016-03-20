@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import models.observable.ObsParticipant;
+import gui.models.ObsParticipant;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

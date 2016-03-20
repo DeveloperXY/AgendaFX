@@ -3,7 +3,7 @@ package gui.windows;
 import gui.controllers.AddParticipantController;
 import javafx.stage.Modality;
 import javafx.stage.Window;
-import models.observable.ObsParticipant;
+import gui.models.ObsParticipant;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.

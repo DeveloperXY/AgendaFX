@@ -4,11 +4,9 @@ import gui.listeners.LoadListener;
 import gui.listeners.SaveListener;
 import gui.windows.ParticipantsWindow;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import models.observable.ObsParticipant;
 
 import java.util.Optional;
 

@@ -1,7 +1,7 @@
 package gui.listeners;
 
 import javafx.collections.ObservableList;
-import models.observable.ObsParticipant;
+import gui.models.ObsParticipant;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
