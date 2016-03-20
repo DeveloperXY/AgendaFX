@@ -2,10 +2,11 @@ package gui.controllers;
 
 import gui.windows.ParticipantsWindow;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
+import models.observable.ObsParticipant;
 
 import java.util.Optional;
 
@@ -15,6 +16,9 @@ import java.util.Optional;
  * The controller in charge of the RDVWindow.
  */
 public class RDVController extends BaseController {
+
+    private SaveListener saveListener;
+    private LoadListener loadListener;
 
     /**
      * Closes the app, when clicking on the "Close" menu item.
@@ -36,7 +40,27 @@ public class RDVController extends BaseController {
      */
     @FXML
     public void onShowDirectory() {
-        ParticipantsWindow window = new ParticipantsWindow();
+        ParticipantsWindow window = new ParticipantsWindow(loadListener.getParticipants());
+        window.setSaveListener(saveListener::saveParticipants);
+        window.setLoadListener(loadListener::getParticipants);
         window.show();
+    }
+
+    public void setSaveListener(SaveListener listener) {
+        this.saveListener = listener;
+    }
+
+    public void setLoadListener(LoadListener listener) {
+        this.loadListener = listener;
+    }
+
+    @FunctionalInterface
+    public interface SaveListener {
+        void saveParticipants(ObservableList<ObsParticipant> participants);
+    }
+
+    @FunctionalInterface
+    public interface LoadListener {
+        ObservableList<ObsParticipant> getParticipants();
     }
 }

@@ -2,10 +2,12 @@ package gui.windows;
 
 import gui.controllers.RDVController;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import models.observable.ObsParticipant;
 
 import java.io.IOException;
 
@@ -23,6 +25,11 @@ public class RDVWindow extends Application {
      */
     private VBox mBox;
 
+    /**
+     * The records of the TableView of participants.
+     */
+    private ObservableList<ObsParticipant> mParticipants;
+
     private RDVController RDVController;
 
     @Override
@@ -39,6 +46,8 @@ public class RDVWindow extends Application {
         mBox = loader.load();
         RDVController = loader.getController();
         RDVController.setOwnerStage(mPrimaryStage);
+        RDVController.setLoadListener(() -> mParticipants);
+        RDVController.setSaveListener((participants -> mParticipants = participants));
 
         mPrimaryStage.setOnCloseRequest(e -> {
             e.consume();

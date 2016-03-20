@@ -75,4 +75,15 @@ public class ObsParticipant {
     public StringProperty addressProperty() {
         return address;
     }
+
+    @Override
+    public String toString() {
+        return "ObsParticipant{" +
+                "firstname=" + firstname +
+                ", lastname=" + lastname +
+                ", phoneNumber=" + phoneNumber +
+                ", email=" + email +
+                ", address=" + address +
+                '}';
+    }
 }

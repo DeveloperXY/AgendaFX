@@ -2,6 +2,7 @@ package gui.controllers;
 
 import gui.windows.ParticipantDialog;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,7 +21,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class DirectoryController extends BaseController {
 
-    private DirectoryListener listener;
+    private DirectoryLoadListener loadListener;
+    private DirectorySaveListener saveListener;
+    private ObservableList<ObsParticipant> participantsData;
 
     @FXML
     private TableView<ObsParticipant> participantsTable;
@@ -63,6 +66,17 @@ public class DirectoryController extends BaseController {
     }
 
     /**
+     * Provides the TableView with initial participants data.
+     *
+     * @param participantsData
+     */
+    public void setParticipantsData(ObservableList<ObsParticipant> participantsData) {
+        this.participantsData = participantsData != null ? participantsData :
+                FXCollections.observableArrayList();
+        participantsTable.setItems(this.participantsData);
+    }
+
+    /**
      * Adds a new participant to the directory.
      */
     @FXML
@@ -70,6 +84,10 @@ public class DirectoryController extends BaseController {
         ParticipantDialog window = new ParticipantDialog(mStage);
         window.setAddListener(participant -> {
             participantsTable.getItems().add(participant);
+
+            // Scroll down to the last item after inserting it
+            participantsTable.scrollTo(participantsTable.getItems().size());
+
             statusLabel.setText("Entry successfully created.");
             resetStatusLabel();
         });
@@ -94,15 +112,25 @@ public class DirectoryController extends BaseController {
 
     @FXML
     public void onExitDirectory() {
+        saveListener.saveParticipants(participantsTable.getItems());
         mStage.close();
     }
 
-    public void setDirectoryListener(DirectoryListener listener) {
-        this.listener = listener;
+    public void setSaveListener(DirectorySaveListener listener) {
+        this.saveListener = listener;
+    }
+
+    public void setLoadListener(DirectoryLoadListener listener) {
+        this.loadListener = listener;
     }
 
     @FunctionalInterface
-    public interface DirectoryListener {
+    public interface DirectorySaveListener {
+        void saveParticipants(ObservableList<ObsParticipant> participants);
+    }
+
+    @FunctionalInterface
+    public interface DirectoryLoadListener {
         ObservableList<ObsParticipant> getRecords();
     }
 }
