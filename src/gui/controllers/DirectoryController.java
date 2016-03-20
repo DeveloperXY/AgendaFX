@@ -24,7 +24,7 @@ public class DirectoryController {
      */
     @FXML
     public void onAddParticipant() {
-        Stage window = new ParticipantDialog();
+        Stage window = new ParticipantDialog(mStage);
         window.showAndWait();
     }
 

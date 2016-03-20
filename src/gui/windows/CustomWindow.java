@@ -16,6 +16,8 @@ public class CustomWindow extends Stage {
 
     private static final String BASE_LAYOUT_DIRECTORY = "/gui/layout/fxml/";
 
+    private FXMLLoader loader;
+
     /**
      * The VBox assembling the components of the main UI.
      */
@@ -25,7 +27,7 @@ public class CustomWindow extends Stage {
         setTitle(title);
 
         try {
-            FXMLLoader loader = new FXMLLoader();
+            loader = new FXMLLoader();
             loader.setLocation(
                     getClass().getResource(
                             BASE_LAYOUT_DIRECTORY + layoutPath));
@@ -36,5 +38,12 @@ public class CustomWindow extends Stage {
         }
 
         setScene(new Scene(mBox));
+    }
+
+    /**
+     * @return the controller associated with the root element of the window.
+     */
+    public Object getController() {
+        return loader.getController();
     }
 }
