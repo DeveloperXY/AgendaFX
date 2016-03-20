@@ -11,7 +11,7 @@ import java.util.Optional;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 19/03/2016.
- *
+ * <p>
  * The controller in charge of the RDVWindow.
  */
 public class RDVController {

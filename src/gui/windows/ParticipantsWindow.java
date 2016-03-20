@@ -1,35 +1,15 @@
 package gui.windows;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
  */
-public class ParticipantsWindow extends Stage {
-
-    /**
-     * The VBox assembling the components of the main UI.
-     */
-    private VBox mBox;
+public class ParticipantsWindow extends CustomWindow {
 
     public ParticipantsWindow() {
-        setTitle("Participants directory");
+        this("Participants directory", "participants_window.fxml");
+    }
 
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(
-                    getClass().getResource("/gui/layout/fxml/participants_window.fxml"));
-            mBox = loader.load();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        setScene(new Scene(mBox));
+    private ParticipantsWindow(String title, String layoutPath) {
+        super(title, layoutPath);
     }
 }
