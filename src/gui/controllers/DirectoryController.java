@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import models.Participant;
+import models.observable.ObsParticipant;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
@@ -18,36 +19,40 @@ public class DirectoryController extends BaseController {
     private DirectoryListener listener;
 
     @FXML
-    private TableView<Participant> participantsTable;
+    private TableView<ObsParticipant> participantsTable;
     /**
      * The first name column.
      */
     @FXML
-    private TableColumn<Participant, String> firstnameColumn;
+    private TableColumn<ObsParticipant, String> firstnameColumn;
     /**
      * The last name column.
      */
     @FXML
-    private TableColumn<Participant, String> lastnameColumn;
+    private TableColumn<ObsParticipant, String> lastnameColumn;
     /**
      * The phone number column.
      */
     @FXML
-    private TableColumn<Participant, String> phoneNumberColumn;
+    private TableColumn<ObsParticipant, String> phoneNumberColumn;
     /**
      * The email column.
      */
     @FXML
-    private TableColumn<Participant, String> emailColumn;
+    private TableColumn<ObsParticipant, String> emailColumn;
     /**
      * The address column.
      */
     @FXML
-    private TableColumn<Participant, String> addressColumn;
+    private TableColumn<ObsParticipant, String> addressColumn;
 
     @FXML
     private void initialize() {
-
+        firstnameColumn.setCellValueFactory(cell -> cell.getValue().firstnameProperty());
+        lastnameColumn.setCellValueFactory(cell -> cell.getValue().lastnameProperty());
+        phoneNumberColumn.setCellValueFactory(cell -> cell.getValue().phoneNumberProperty());
+        emailColumn.setCellValueFactory(cell -> cell.getValue().emailProperty());
+        addressColumn.setCellValueFactory(cell -> cell.getValue().addressProperty());
     }
 
     /**
@@ -55,7 +60,9 @@ public class DirectoryController extends BaseController {
      */
     @FXML
     public void onAddParticipant() {
-        Stage window = new ParticipantDialog(mStage);
+        ParticipantDialog window = new ParticipantDialog(mStage);
+        window.setAddListener(participant ->
+                participantsTable.getItems().add(participant));
         window.showAndWait();
     }
 
@@ -75,6 +82,6 @@ public class DirectoryController extends BaseController {
 
     @FunctionalInterface
     public interface DirectoryListener {
-        ObservableList<Participant> getRecords();
+        ObservableList<ObsParticipant> getRecords();
     }
 }

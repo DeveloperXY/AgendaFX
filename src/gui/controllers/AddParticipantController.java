@@ -3,7 +3,7 @@ package gui.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import models.Participant;
+import models.observable.ObsParticipant;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
@@ -15,7 +15,7 @@ public class AddParticipantController extends BaseController {
     /**
      * The participant to be added.
      */
-    private Participant participant;
+    private ObsParticipant participant;
 
     @FXML
     private TextField firstname;
@@ -28,7 +28,9 @@ public class AddParticipantController extends BaseController {
     @FXML
     private TextField address;
 
-    public void setParticipant(Participant participant) {
+    private AddParticipantListener listener;
+
+    public void setParticipant(ObsParticipant participant) {
         this.participant = participant;
     }
 
@@ -59,24 +61,28 @@ public class AddParticipantController extends BaseController {
         boolean emailStatus = emailAddress.length() != 0;
         boolean addressStatus = adress.length() != 0;
 
-        if(firstnameStatus && lastnameStatus && phoneStatus && emailStatus && addressStatus) {
+        if (firstnameStatus && lastnameStatus && phoneStatus && emailStatus && addressStatus) {
             // All info are valid, proceed.
 
+            participant.firstnameProperty().setValue(firstn);
+            participant.lastnameProperty().setValue(lastn);
+            participant.phoneNumberProperty().setValue(phoneNumber);
+            participant.emailProperty().setValue(emailAddress);
+            participant.addressProperty().setValue(adress);
+
+            listener.addParticipant(participant);
+            onCancel();
+
             return;
-        }
-        else if(!firstnameStatus) {
+        } else if (!firstnameStatus) {
             errorMessage = "Please enter a valid first name.\n";
-        }
-        else if(!lastnameStatus) {
+        } else if (!lastnameStatus) {
             errorMessage = "Please enter a valid last name.\n";
-        }
-        else if(!phoneStatus) {
+        } else if (!phoneStatus) {
             errorMessage = "Please enter a valid phone number.\n";
-        }
-        else if(!emailStatus) {
+        } else if (!emailStatus) {
             errorMessage = "Please enter a valid email.\n";
-        }
-        else {
+        } else {
             errorMessage = "Please enter a valid address.\n";
         }
 
@@ -87,5 +93,14 @@ public class AddParticipantController extends BaseController {
         alert.setContentText(errorMessage);
 
         alert.showAndWait();
+    }
+
+    public void setAddParticipantListener(AddParticipantListener listener) {
+        this.listener = listener;
+    }
+
+    @FunctionalInterface
+    public interface AddParticipantListener {
+        void addParticipant(ObsParticipant participant);
     }
 }

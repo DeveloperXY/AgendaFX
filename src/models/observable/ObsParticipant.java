@@ -1,5 +1,6 @@
 package models.observable;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import models.Participant;
 
@@ -13,12 +14,21 @@ public class ObsParticipant {
     private StringProperty email;
     private StringProperty address;
 
+    public ObsParticipant() {
+        firstname = new SimpleStringProperty();
+        lastname = new SimpleStringProperty();
+        phoneNumber = new SimpleStringProperty();
+        email = new SimpleStringProperty();
+        address = new SimpleStringProperty();
+    }
+
     /**
      * Builds an "observable" participant.
      *
      * @param participant
      */
     public ObsParticipant(Participant participant) {
+        this();
         firstname.setValue(participant.getFirstname());
         lastname.setValue(participant.getLastname());
         phoneNumber.setValue(participant.getPhoneNumber());

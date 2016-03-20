@@ -3,7 +3,7 @@ package gui.windows;
 import gui.controllers.DirectoryController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import models.Participant;
+import models.observable.ObsParticipant;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
@@ -13,7 +13,7 @@ public class ParticipantsWindow extends CustomWindow {
     /**
      * The records of the TableView.
      */
-    private ObservableList<Participant> mRecords;
+    private ObservableList<ObsParticipant> mRecords;
 
     public ParticipantsWindow() {
         this("Participants directory", "participants_window.fxml");
