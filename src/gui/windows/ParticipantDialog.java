@@ -1,6 +1,8 @@
 package gui.windows;
 
+import gui.controllers.AddParticipantController;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
@@ -13,6 +15,9 @@ public class ParticipantDialog extends CustomWindow {
 
         initModality(Modality.WINDOW_MODAL);
         initOwner(window);
+
+        AddParticipantController controller = (AddParticipantController) getController();
+        controller.setOwnerStage(this);
     }
 
     private ParticipantDialog(String title, String layoutPath) {

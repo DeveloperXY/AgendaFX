@@ -37,8 +37,6 @@ public class RDVController extends BaseController {
     @FXML
     public void onShowDirectory() {
         ParticipantsWindow window = new ParticipantsWindow();
-        DirectoryController controller = (DirectoryController) window.getController();
-        controller.setOwnerStage(mStage);
         window.show();
     }
 }
