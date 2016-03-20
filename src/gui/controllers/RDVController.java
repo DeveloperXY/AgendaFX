@@ -3,7 +3,6 @@ package gui.controllers;
 import gui.windows.ParticipantsWindow;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -12,6 +11,8 @@ import java.util.Optional;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 19/03/2016.
+ *
+ * The controller in charge of the RDVWindow.
  */
 public class RDVController {
 
@@ -22,9 +23,6 @@ public class RDVController {
 
     public void setOwnerStage(Stage stage) {
         mStage = stage;
-    }
-
-    public RDVController() {
     }
 
     /**
