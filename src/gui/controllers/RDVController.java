@@ -1,5 +1,7 @@
 package gui.controllers;
 
+import gui.listeners.LoadListener;
+import gui.listeners.SaveListener;
 import gui.windows.ParticipantsWindow;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -52,15 +54,5 @@ public class RDVController extends BaseController {
 
     public void setLoadListener(LoadListener listener) {
         this.loadListener = listener;
-    }
-
-    @FunctionalInterface
-    public interface SaveListener {
-        void saveParticipants(ObservableList<ObsParticipant> participants);
-    }
-
-    @FunctionalInterface
-    public interface LoadListener {
-        ObservableList<ObsParticipant> getParticipants();
     }
 }

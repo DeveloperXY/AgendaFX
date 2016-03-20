@@ -13,6 +13,22 @@ import java.io.IOException;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 19/03/2016.
+ *
+ * This class represents the starting point of the application.
+ *
+ * It makes use of 2 functional interfaces, 'LoadListener' and 'SaveListener'.
+ * All the other classes who implement these 2 interfaces are "bridges" in order
+ * to communicate with this class.
+ *
+ * In order to persist the participants' data, their initial data source will be
+ * stored here in this class as @mParticipants; this is the instance concerned
+ * with the "saving to" & "loading from" process. (the 2 interfaces)
+ *
+ * The data path:
+ *      **@Source** RDVWindow <->
+ *                      RDVController <->
+ *                          ParticipantsWindow <->
+ *                              DirectoryController **@Destination**
  */
 public class RDVWindow extends Application {
 
@@ -46,7 +62,10 @@ public class RDVWindow extends Application {
         mBox = loader.load();
         RDVController = loader.getController();
         RDVController.setOwnerStage(mPrimaryStage);
+
+        // Original source of participants
         RDVController.setLoadListener(() -> mParticipants);
+        // Triggered to save participants
         RDVController.setSaveListener((participants -> mParticipants = participants));
 
         mPrimaryStage.setOnCloseRequest(e -> {

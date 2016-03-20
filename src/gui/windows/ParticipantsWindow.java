@@ -1,6 +1,8 @@
 package gui.windows;
 
 import gui.controllers.DirectoryController;
+import gui.listeners.LoadListener;
+import gui.listeners.SaveListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.observable.ObsParticipant;
@@ -52,13 +54,5 @@ public class ParticipantsWindow extends CustomWindow {
         this.loadListener = listener;
     }
 
-    @FunctionalInterface
-    public interface SaveListener {
-        void saveParticipants(ObservableList<ObsParticipant> participants);
-    }
 
-    @FunctionalInterface
-    public interface LoadListener {
-        ObservableList<ObsParticipant> getParticipants();
-    }
 }

@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
- *
+ * <p>
  * A base controller class for all the controllers of the application.
  */
 public class BaseController {

@@ -1,5 +1,7 @@
 package gui.controllers;
 
+import gui.listeners.LoadListener;
+import gui.listeners.SaveListener;
 import gui.windows.ParticipantDialog;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -21,8 +23,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class DirectoryController extends BaseController {
 
-    private DirectoryLoadListener loadListener;
-    private DirectorySaveListener saveListener;
+    private LoadListener loadListener;
+    private SaveListener saveListener;
     private ObservableList<ObsParticipant> participantsData;
 
     @FXML
@@ -116,21 +118,11 @@ public class DirectoryController extends BaseController {
         mStage.close();
     }
 
-    public void setSaveListener(DirectorySaveListener listener) {
+    public void setSaveListener(SaveListener listener) {
         this.saveListener = listener;
     }
 
-    public void setLoadListener(DirectoryLoadListener listener) {
+    public void setLoadListener(LoadListener listener) {
         this.loadListener = listener;
-    }
-
-    @FunctionalInterface
-    public interface DirectorySaveListener {
-        void saveParticipants(ObservableList<ObsParticipant> participants);
-    }
-
-    @FunctionalInterface
-    public interface DirectoryLoadListener {
-        ObservableList<ObsParticipant> getRecords();
     }
 }
