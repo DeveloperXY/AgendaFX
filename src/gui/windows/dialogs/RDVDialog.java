@@ -1,8 +1,6 @@
 package gui.windows.dialogs;
 
-import gui.controllers.dialogs.ParticipantDialogController;
 import gui.controllers.dialogs.RDVDialogController;
-import gui.models.ObsParticipant;
 import gui.models.ObsRDV;
 import gui.windows.BaseWindow;
 import javafx.stage.Modality;
@@ -18,16 +16,15 @@ public class RDVDialog extends BaseWindow {
 
     public RDVDialog(Window window, String title) {
         super(title, "rdv_dialog.fxml", window, Modality.WINDOW_MODAL);
+        ObsRDV rdv = new ObsRDV();
 
-        RDVDialogController controller = (RDVDialogController) getController();
+        controller = (RDVDialogController) getController();
         controller.setOwnerStage(this);
-
-        ObsRDV participant = new ObsRDV();
-        controller.setRDV(participant);
-        controller.setAddParticipantListener(obsPart -> {
-            // Add participant to TableView
+        controller.setRDV(rdv);
+        controller.setAddRDVListener(obsRDV -> {
+            // Add RDV to TableView
             if (listener != null)
-                listener.onAdd(participant);
+                listener.onAdd(rdv);
         });
     }
 

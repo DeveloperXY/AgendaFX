@@ -46,7 +46,9 @@ public class RDVController extends BaseController {
     @FXML
     public void onAddRDV() {
         RDVDialog window = new RDVDialog(mStage, "Add a new RDV");
+        window.setAddListener(rdv -> {
 
+        });
         window.showAndWait();
     }
 

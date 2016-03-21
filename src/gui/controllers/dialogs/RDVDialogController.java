@@ -13,6 +13,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.function.UnaryOperator;
@@ -137,16 +138,29 @@ public class RDVDialogController extends BaseController {
         if (dateStatus && durationStatus && participantStatus && addressStatus) {
 
             rdv.dateProperty().setValue(date);
+            rdv.durationProperty().setValue(Duration.ofMinutes(duration));
+            rdv.setParticipants(FXCollections.observableArrayList(
+                    participants.stream()
+                            .map(name -> RDVWindow.getParticipants()
+                                    .stream()
+                                    .filter(p -> p.firstnameProperty().get().equals(name))
+                                    .findFirst()
+                                    .get())
+                            .collect(Collectors.toList())
+            ));
+            rdv.addressProperty().set(address);
+
+            if (listener != null)
+                listener.addRDV(rdv);
 
             return;
-        }
-        else if(! dateStatus)
+        } else if (!dateStatus)
             errorMessage = "Please choose a date for the RDV.\n";
-        else if(! durationStatus)
+        else if (!durationStatus)
             errorMessage = "Please enter a valid duration of minutes for the RDV.\n";
-        else if(! participantStatus)
+        else if (!participantStatus)
             errorMessage = "Please choose at least one participant in this RDV.\n";
-        else if(! addressStatus)
+        else if (!addressStatus)
             errorMessage = "Please specify the address where this RDV is taking place.\n";
 
         // Something is wrong with the input, show an error dialog.
@@ -164,7 +178,7 @@ public class RDVDialogController extends BaseController {
         addresstext.setText(rdv.getAddress());
     }
 
-    public void setAddParticipantListener(AddRDVListener listener) {
+    public void setAddRDVListener(AddRDVListener listener) {
         this.listener = listener;
     }
 
