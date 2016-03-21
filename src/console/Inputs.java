@@ -5,6 +5,7 @@ import models.Participant;
 import models.RDV;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,7 @@ public class Inputs {
     public static RDV getNewRDV(Annuaire annuaire) {
         // The RDV's date
         System.out.println("The RDV's date:");
-        Date date = getNewDate();
+        LocalDate date = getNewDate();
 
         // The RDV's duration, in minutes
         System.out.println("The RDV's duration: (in minutes)");
@@ -91,7 +92,7 @@ public class Inputs {
         return scanner.nextLine();
     }
 
-    public static Date getNewDate(String... message) {
+    public static LocalDate getNewDate(String... message) {
 
         if (message != null && message.length != 0)
             System.out.println(message[0] + Console.CONSOLE_LINE_SEPARATOR);
@@ -103,8 +104,6 @@ public class Inputs {
         System.out.print("Year: ");
         int year = Integer.parseInt(scanner.nextLine());
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month - 1, day, 0, 0, 0);
-        return calendar.getTime();
+        return LocalDate.of(year, month, day);
     }
 }

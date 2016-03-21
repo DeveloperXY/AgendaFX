@@ -2,6 +2,7 @@ package gui.controllers.dialogs;
 
 import gui.controllers.BaseController;
 import gui.models.ObsParticipant;
+import gui.models.ObsRDV;
 import gui.windows.RDVWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,13 @@ import java.util.stream.Collectors;
 public class RDVDialogController extends BaseController {
 
     private static final int SPINNER_DEFAULT_VALUE = 10;
+
+    /**
+     * The RDV to be added.
+     */
+    private ObsRDV rdv;
+
+    private AddRDVListener listener;
 
     @FXML
     private DatePicker datePicker;
@@ -124,11 +132,11 @@ public class RDVDialogController extends BaseController {
         boolean dateStatus = (date != null);
         boolean durationStatus = duration >= 0 && duration <= 120;
         boolean participantStatus = participants.size() != 0;
-        boolean addressStatus = address.length() != 0;
+        boolean addressStatus = address != null && address.length() > 0;
 
         if (dateStatus && durationStatus && participantStatus && addressStatus) {
 
-
+            rdv.dateProperty().setValue(date);
 
             return;
         }
@@ -148,5 +156,20 @@ public class RDVDialogController extends BaseController {
         alert.setContentText(errorMessage);
 
         alert.showAndWait();
+    }
+
+    public void setRDV(ObsRDV rdv) {
+        this.rdv = rdv;
+
+        addresstext.setText(rdv.getAddress());
+    }
+
+    public void setAddParticipantListener(AddRDVListener listener) {
+        this.listener = listener;
+    }
+
+    @FunctionalInterface
+    public interface AddRDVListener {
+        void addRDV(ObsRDV rdv);
     }
 }

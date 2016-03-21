@@ -2,6 +2,7 @@ package console;
 
 import models.RDV;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
  */
 public class Agenda {
-    private Map<Date, RDV> map;
+    private Map<LocalDate, RDV> map;
 
     public Agenda() {
         map = new HashMap<>();
@@ -18,7 +19,7 @@ public class Agenda {
     /**
      * @param map Overloaded constructor.
      */
-    public Agenda(Map<Date, RDV> map) {
+    public Agenda(Map<LocalDate, RDV> map) {
         this.map.putAll(map);
     }
 
@@ -35,11 +36,11 @@ public class Agenda {
         System.out.println("RDV successfully added." + Console.CONSOLE_LINE_SEPARATOR);
     }
 
-    public void updateEntry(Date time, RDV rdv) {
+    public void updateEntry(LocalDate time, RDV rdv) {
         map.put(time, rdv);
     }
 
-    public void removeEntry(Date time) {
+    public void removeEntry(LocalDate time) {
         System.out.println("Equals: " + map.get(time) + " - " + time);
         System.out.println("Removed: " + map.remove(time));
         System.out.println("Deletion: " + time);
@@ -62,16 +63,16 @@ public class Agenda {
         System.out.println(Console.CONSOLE_LINE_SEPARATOR);
     }
 
-    public List<RDV> getRDVs(Date... delimiterDates) {
+    public List<RDV> getRDVs(LocalDate... delimiterDates) {
         if (delimiterDates != null) {
-            Date start = delimiterDates[0];
-            Date end = delimiterDates[1];
+            LocalDate start = delimiterDates[0];
+            LocalDate end = delimiterDates[1];
 
             return map.entrySet()
                     .stream()
                     .map(Map.Entry::getValue)
-                    .filter(rdv -> rdv.getDate().after(start))
-                    .filter(rdv -> rdv.getDate().before(end))
+                    .filter(rdv -> rdv.getDate().isAfter(start))
+                    .filter(rdv -> rdv.getDate().isBefore(end))
                     .sorted(getDateComparator())
                     .collect(Collectors.toList());
         }
@@ -79,16 +80,16 @@ public class Agenda {
         return null;
     }
 
-    public List<RDV> getParticipantRDVs(String participantName, Date... delimiterDates) {
+    public List<RDV> getParticipantRDVs(String participantName, LocalDate... delimiterDates) {
         if (delimiterDates != null) {
-            Date start = delimiterDates[0];
-            Date end = delimiterDates[1];
+            LocalDate start = delimiterDates[0];
+            LocalDate end = delimiterDates[1];
 
             return map.entrySet()
                     .stream()
                     .map(Map.Entry::getValue)
-                    .filter(rdv -> rdv.getDate().after(start))
-                    .filter(rdv -> rdv.getDate().before(end))
+                    .filter(rdv -> rdv.getDate().isAfter(start))
+                    .filter(rdv -> rdv.getDate().isBefore(end))
                     .filter(rdv -> rdv.isParticipant(participantName))
                     .sorted(getDateComparator())
                     .collect(Collectors.toList());

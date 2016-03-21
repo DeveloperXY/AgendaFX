@@ -1,6 +1,7 @@
 package models;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -8,23 +9,23 @@ import java.util.List;
  * Created by Mohammed Aouf ZOUAG on 04/03/2016.
  */
 public class RDV {
-    private Date mDate;
+    private LocalDate mDate;
     private Duration mDuration;
     private List<Participant> mParticipants;
     private String mAddress;
 
-    public RDV(Date date, Duration duration, List<Participant> participants, String address) {
+    public RDV(LocalDate date, Duration duration, List<Participant> participants, String address) {
         mDate = date;
         mDuration = duration;
         mParticipants = participants;
         mAddress = address;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return mDate;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         mDate = date;
     }
 

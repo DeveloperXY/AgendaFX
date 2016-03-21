@@ -1,6 +1,7 @@
 package gui.windows;
 
 import gui.controllers.RDVController;
+import gui.models.ObsRDV;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +33,11 @@ public class RDVWindow extends Application {
      * The records of the TableView of participants.
      */
     private static ObservableList<ObsParticipant> mParticipants;
+
+    /**
+     * The records of the TableView of RDVs.
+     */
+    private static ObservableList<ObsRDV> mRDVs;
 
     private RDVController RDVController;
 
@@ -70,5 +76,15 @@ public class RDVWindow extends Application {
             mParticipants = FXCollections.observableArrayList();
 
         return mParticipants;
+    }
+
+    /**
+     * @return the observable list of RDVs.
+     */
+    public static ObservableList<ObsRDV> getRDVs() {
+        if (mRDVs == null)
+            mRDVs = FXCollections.observableArrayList();
+
+        return mRDVs;
     }
 }

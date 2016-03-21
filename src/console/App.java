@@ -5,6 +5,7 @@ import models.Participant;
 import models.RDV;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -146,8 +147,8 @@ public class App {
                         Console.clearConsole();
                         System.out.println("The agenda is clear." + Console.CONSOLE_LINE_SEPARATOR);
                     } else {
-                        Date start = Inputs.getNewDate("Starting date:");
-                        Date end = Inputs.getNewDate("Ending date:");
+                        LocalDate start = Inputs.getNewDate("Starting date:");
+                        LocalDate end = Inputs.getNewDate("Ending date:");
 
                         Console.clearConsole();
 
@@ -163,8 +164,8 @@ public class App {
                     }
                     break;
                 case 4:
-                    Date startDate = Inputs.getNewDate("Starting date:");
-                    Date endDate = Inputs.getNewDate("Ending date:");
+                    LocalDate startDate = Inputs.getNewDate("Starting date:");
+                    LocalDate endDate = Inputs.getNewDate("Ending date:");
 
                     String participant = Inputs.getNewParticipantName();
                     List<RDV> rdvList = agenda.getParticipantRDVs(participant, startDate, endDate);
@@ -181,7 +182,7 @@ public class App {
                     break;
                 case 5:
                     // Remove an RDV
-                    Date date = Inputs.getNewDate(); // The date of the RDV to remove
+                    LocalDate date = Inputs.getNewDate(); // The date of the RDV to remove
                     agenda.removeEntry(date);
                     break;
                 case 6:
