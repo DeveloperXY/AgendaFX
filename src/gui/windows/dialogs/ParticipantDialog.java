@@ -1,6 +1,6 @@
 package gui.windows.dialogs;
 
-import gui.controllers.AddParticipantController;
+import gui.controllers.dialogs.ParticipantDialogController;
 import gui.windows.BaseWindow;
 import javafx.stage.Modality;
 import javafx.stage.Window;
@@ -12,13 +12,13 @@ import gui.models.ObsParticipant;
 public class ParticipantDialog extends BaseWindow {
 
     private AddListener listener;
-    private AddParticipantController controller;
+    private ParticipantDialogController controller;
 
     public ParticipantDialog(Window window, String title) {
         this(title, "participant_dialog.fxml", window);
 
         ObsParticipant participant = new ObsParticipant();
-        controller = (AddParticipantController) getController();
+        controller = (ParticipantDialogController) getController();
         controller.setOwnerStage(this);
         controller.setParticipant(participant);
         controller.setAddParticipantListener(obsPart -> {

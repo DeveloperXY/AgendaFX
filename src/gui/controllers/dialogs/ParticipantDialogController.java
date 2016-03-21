@@ -1,5 +1,6 @@
-package gui.controllers;
+package gui.controllers.dialogs;
 
+import gui.controllers.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -10,7 +11,7 @@ import gui.models.ObsParticipant;
  * <p>
  * The controller in charge of the 'Add new participant' dialog.
  */
-public class AddParticipantController extends BaseController {
+public class ParticipantDialogController extends BaseController {
 
     /**
      * The participant to be added.
