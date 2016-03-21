@@ -53,11 +53,11 @@ public class AddParticipantController extends BaseController {
      */
     @FXML
     private void onConfirm() {
-        String firstn = firstname.getText();
-        String lastn = lastname.getText();
-        String phoneNumber = phone.getText();
-        String emailAddress = email.getText();
-        String adress = address.getText();
+        String firstn = firstname.getText() == null ? "" : firstname.getText();
+        String lastn = lastname.getText() == null ? "" : lastname.getText();
+        String phoneNumber = phone.getText() == null ? "" : phone.getText();
+        String emailAddress = email.getText() == null ? "" : email.getText();
+        String adress = address.getText() == null ? "" : address.getText();
 
         String errorMessage;
 

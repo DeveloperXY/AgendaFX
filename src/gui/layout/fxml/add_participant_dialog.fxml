@@ -25,11 +25,11 @@
                 <Label alignment="CENTER" text="Phone number :" GridPane.rowIndex="2"/>
                 <Label alignment="CENTER" text="Email :" GridPane.rowIndex="3"/>
                 <Label alignment="CENTER" text="Address :" GridPane.rowIndex="4"/>
-                <TextField fx:id="firstname" GridPane.columnIndex="1"/>
-                <TextField fx:id="lastname" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <TextField fx:id="phone" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-                <TextField fx:id="email" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <TextField fx:id="address" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <TextField fx:id="firstname" promptText="first name..." GridPane.columnIndex="1"/>
+                <TextField fx:id="lastname" promptText="last name..." GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <TextField fx:id="phone" promptText="phone number..." GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <TextField fx:id="email" promptText="\@..." GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <TextField fx:id="address" promptText="Address..." GridPane.columnIndex="1" GridPane.rowIndex="4"/>
             </children>
         </GridPane>
         <ButtonBar prefHeight="40.0" prefWidth="200.0">
