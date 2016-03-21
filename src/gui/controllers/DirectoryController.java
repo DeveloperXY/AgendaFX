@@ -4,7 +4,7 @@ import gui.listeners.DataBridge;
 import gui.listeners.LoadListener;
 import gui.listeners.SaveListener;
 import gui.models.ObsParticipant;
-import gui.windows.ParticipantDialog;
+import gui.windows.dialogs.ParticipantDialog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -80,7 +80,7 @@ public class DirectoryController extends BaseController implements DataBridge {
 
     @FXML
     private void initialize() {
-        disableDeleteBtnState = new SimpleBooleanProperty(true);
+        disableDeleteBtnState = new SimpleBooleanProperty(false);
         disableModifyBtnState = new SimpleBooleanProperty(true);
         participantsData = FXCollections.observableArrayList();
 
@@ -100,8 +100,9 @@ public class DirectoryController extends BaseController implements DataBridge {
         participantsTable.getSelectionModel()
                 .getSelectedCells()
                 .addListener((ListChangeListener<TablePosition>) c -> {
-                    disableModifyBtnState.setValue(participantsTable.getSelectionModel()
-                            .getSelectedItem() == null);
+                    ObsParticipant item = participantsTable.getSelectionModel()
+                            .getSelectedItem();
+                    disableModifyBtnState.setValue(item == null);
                 });
 
         // Bind

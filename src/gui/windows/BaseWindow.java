@@ -3,7 +3,9 @@ package gui.windows;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -12,7 +14,7 @@ import java.io.IOException;
  * <p>
  * A base class for all custom windows.
  */
-public class CustomWindow extends Stage {
+public class BaseWindow extends Stage {
 
     private static final String BASE_LAYOUT_DIRECTORY = "/gui/layout/fxml/";
 
@@ -23,7 +25,7 @@ public class CustomWindow extends Stage {
      */
     private VBox mBox;
 
-    public CustomWindow(String title, String layoutPath) {
+    public BaseWindow(String title, String layoutPath) {
         setTitle(title);
 
         try {
@@ -38,6 +40,21 @@ public class CustomWindow extends Stage {
         }
 
         setScene(new Scene(mBox));
+    }
+
+    /**
+     * Overloaded constructor.
+     *
+     * @param title of the window.
+     * @param layoutPath the path of the window's FXML layout.
+     * @param owner window.
+     * @param modality of the window.
+     */
+    public BaseWindow(String title, String layoutPath, Window owner, Modality modality) {
+        this(title, layoutPath);
+
+        initModality(modality);
+        initOwner(owner);
     }
 
     /**

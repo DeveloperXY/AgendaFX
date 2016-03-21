@@ -1,6 +1,7 @@
-package gui.windows;
+package gui.windows.dialogs;
 
 import gui.controllers.AddParticipantController;
+import gui.windows.BaseWindow;
 import javafx.stage.Modality;
 import javafx.stage.Window;
 import gui.models.ObsParticipant;
@@ -8,18 +9,15 @@ import gui.models.ObsParticipant;
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
  */
-public class ParticipantDialog extends CustomWindow {
+public class ParticipantDialog extends BaseWindow {
 
     private AddListener listener;
     private AddParticipantController controller;
 
     public ParticipantDialog(Window window, String title) {
-        this(title, "add_participant_dialog.fxml");
+        this(title, "add_participant_dialog.fxml", window);
 
         setResizable(false);
-
-        initModality(Modality.WINDOW_MODAL);
-        initOwner(window);
 
         ObsParticipant participant = new ObsParticipant();
         controller = (AddParticipantController) getController();
@@ -32,8 +30,8 @@ public class ParticipantDialog extends CustomWindow {
         });
     }
 
-    private ParticipantDialog(String title, String layoutPath) {
-        super(title, layoutPath);
+    private ParticipantDialog(String title, String layoutPath, Window window) {
+        super(title, layoutPath, window, Modality.WINDOW_MODAL);
     }
 
     public void setParticipant(ObsParticipant participant) {

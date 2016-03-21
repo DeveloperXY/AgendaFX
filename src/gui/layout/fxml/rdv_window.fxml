@@ -53,9 +53,8 @@
     </TableView>
     <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
         <buttons>
-            <Button mnemonicParsing="false" text="Cancel"/>
-            <Button mnemonicParsing="false" text="Drop"/>
-            <Button mnemonicParsing="false" text="Add new"/>
+            <Button mnemonicParsing="false" onAction="#onDeleteRDV" text="Drop RDV"/>
+            <Button mnemonicParsing="false" onAction="#onAddRDV" text="Add new"/>
             <Button mnemonicParsing="false" onAction="#onShowDirectory" text="Participants' directory"/>
         </buttons>
         <padding>

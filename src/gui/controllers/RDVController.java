@@ -47,6 +47,14 @@ public class RDVController extends BaseController implements DataBridge {
         window.show();
     }
 
+    /**
+     * Creates a new RDV.
+     */
+    @FXML
+    public void onAddRDV() {
+
+    }
+
     public void setSaveListener(SaveListener listener) {
         this.saveListener = listener;
     }

@@ -11,7 +11,7 @@ import gui.models.ObsParticipant;
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.
  */
-public class ParticipantsWindow extends CustomWindow implements DataBridge {
+public class ParticipantsWindow extends BaseWindow implements DataBridge {
 
     private SaveListener saveListener;
     private LoadListener loadListener;
