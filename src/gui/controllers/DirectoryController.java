@@ -6,16 +6,17 @@ import gui.listeners.SaveListener;
 import gui.models.ObsParticipant;
 import gui.windows.ParticipantDialog;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,6 +40,11 @@ public class DirectoryController extends BaseController implements DataBridge {
      * "Delete entry" button is bound.
      */
     private BooleanProperty disableDeleteBtnState;
+    /**
+     * A boolean property to whom the 'disableProperty' of the
+     * "Modify entry" button is bound.
+     */
+    private BooleanProperty disableModifyBtnState;
 
     @FXML
     private TableView<ObsParticipant> participantsTable;
@@ -72,12 +78,17 @@ public class DirectoryController extends BaseController implements DataBridge {
     private Label statusLabel;
 
     @FXML
+    private Button modifyParticipantBtn;
+    @FXML
     private Button deleteParticipantBtn;
 
     @FXML
     private void initialize() {
         disableDeleteBtnState = new SimpleBooleanProperty(true);
+        disableModifyBtnState = new SimpleBooleanProperty(true);
         participantsData = FXCollections.observableArrayList();
+
+        // Set a listener on the TableView's data observableList
         participantsData.addListener((ListChangeListener<ObsParticipant>) c -> {
             while (c.next()) {
                 if (c.wasAdded()) {
@@ -90,25 +101,22 @@ public class DirectoryController extends BaseController implements DataBridge {
             }
         });
 
+        participantsTable.getSelectionModel()
+                .getSelectedCells()
+                .addListener((ListChangeListener<TablePosition>) c -> {
+                    disableModifyBtnState.setValue(participantsTable.getSelectionModel()
+                            .getSelectedItem() == null);
+                });
+
+        // Bind
+        deleteParticipantBtn.disableProperty().bind(disableDeleteBtnState);
+        modifyParticipantBtn.disableProperty().bind(disableModifyBtnState);
+
         firstnameColumn.setCellValueFactory(cell -> cell.getValue().firstnameProperty());
         lastnameColumn.setCellValueFactory(cell -> cell.getValue().lastnameProperty());
         phoneNumberColumn.setCellValueFactory(cell -> cell.getValue().phoneNumberProperty());
         emailColumn.setCellValueFactory(cell -> cell.getValue().emailProperty());
         addressColumn.setCellValueFactory(cell -> cell.getValue().addressProperty());
-
-        deleteParticipantBtn.disableProperty().bind(disableDeleteBtnState);
-    }
-
-    /**
-     * Provides the TableView with initial participants data.
-     *
-     * @param participantsData
-     */
-    public void setParticipantsData(ObservableList<ObsParticipant> participantsData) {
-        if (participantsData != null)
-            this.participantsData = participantsData;
-
-        participantsTable.setItems(this.participantsData);
     }
 
     /**
@@ -130,14 +138,11 @@ public class DirectoryController extends BaseController implements DataBridge {
     }
 
     /**
-     * Resets the text of the status label to its original value.
+     * Invoked when the "Modify entry" button is pressed.
      */
-    private void resetStatusLabel() {
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-        Runnable task = () -> Platform.runLater(() -> statusLabel.setText("Ready."));
-        executor.schedule(task, 5, TimeUnit.SECONDS);
-
-        executor.shutdown();
+    @FXML
+    public void onModifyParticipant() {
+        ParticipantDialog window = new ParticipantDialog(mStage);
     }
 
     /**
@@ -150,7 +155,8 @@ public class DirectoryController extends BaseController implements DataBridge {
         if (selectedIndex >= 0) {
             participantsTable.getItems().remove(selectedIndex);
         } else {
-            System.out.println("No participant is selected.");
+            statusLabel.setText("Please select a participant to delete.");
+            resetStatusLabel();
         }
     }
 
@@ -161,6 +167,29 @@ public class DirectoryController extends BaseController implements DataBridge {
     public void onExitDirectory() {
         saveListener.saveParticipants(participantsTable.getItems());
         mStage.close();
+    }
+
+    /**
+     * Provides the TableView with initial participants data.
+     *
+     * @param participantsData
+     */
+    public void setParticipantsData(ObservableList<ObsParticipant> participantsData) {
+        if (participantsData != null)
+            this.participantsData = participantsData;
+
+        participantsTable.setItems(this.participantsData);
+    }
+
+    /**
+     * Resets the text of the status label to its original value.
+     */
+    private void resetStatusLabel() {
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        Runnable task = () -> Platform.runLater(() -> statusLabel.setText("Ready."));
+        executor.schedule(task, 5, TimeUnit.SECONDS);
+
+        executor.shutdown();
     }
 
     public void setSaveListener(SaveListener listener) {
