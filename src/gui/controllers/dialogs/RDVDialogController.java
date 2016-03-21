@@ -13,6 +13,7 @@ import javafx.util.converter.IntegerStringConverter;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -111,13 +112,39 @@ public class RDVDialogController extends BaseController {
     @FXML
     private void onConfirm() {
         LocalDate date = datePicker.getValue();
-//        int duration = durationSpinner.getValue();
-        String participant = participantsCombobox.getSelectionModel().getSelectedItem();
+        int duration = durationSpinner.getValue();
+        List<String> participants =
+                participantsListview.getItems()
+                        .stream()
+                        .collect(Collectors.toList());
         String address = addresstext.getText();
 
-        System.out.println("Date: " + date);
-//        System.out.println("Duration: " + duration);
-        System.out.println("Participant: " + participant);
-        System.out.println("Address: " + address);
+        String errorMessage = "";
+
+        boolean dateStatus = (date != null);
+        boolean durationStatus = duration >= 0 && duration <= 120;
+        boolean participantStatus = participants.size() != 0;
+        boolean addressStatus = address.length() != 0;
+
+        if (dateStatus && durationStatus && participantStatus && addressStatus) {
+
+            return;
+        }
+        else if(! dateStatus)
+            errorMessage = "Please choose a date for the RDV.\n";
+        else if(! durationStatus)
+            errorMessage = "Please enter a valid duration of minutes for the RDV.\n";
+        else if(! participantStatus)
+            errorMessage = "Please choose at least one participant in this RDV.\n";
+        else if(! addressStatus)
+            errorMessage = "Please specify the address where this RDV is taking place.\n";
+
+        // Something is wrong with the input, show an error dialog.
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Unable to proceed.");
+        alert.setHeaderText("Please correct the invalid fields.");
+        alert.setContentText(errorMessage);
+
+        alert.showAndWait();
     }
 }
