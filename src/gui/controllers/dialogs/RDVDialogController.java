@@ -128,6 +128,8 @@ public class RDVDialogController extends BaseController {
 
         if (dateStatus && durationStatus && participantStatus && addressStatus) {
 
+
+
             return;
         }
         else if(! dateStatus)
