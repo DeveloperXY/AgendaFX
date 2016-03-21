@@ -11,9 +11,10 @@ import gui.models.ObsParticipant;
 public class ParticipantDialog extends CustomWindow {
 
     private AddListener listener;
+    private AddParticipantController controller;
 
-    public ParticipantDialog(Window window) {
-        this("Add a new participant", "add_participant_dialog.fxml");
+    public ParticipantDialog(Window window, String title) {
+        this(title, "add_participant_dialog.fxml");
 
         setResizable(false);
 
@@ -21,17 +22,22 @@ public class ParticipantDialog extends CustomWindow {
         initOwner(window);
 
         ObsParticipant participant = new ObsParticipant();
-        AddParticipantController controller = (AddParticipantController) getController();
+        controller = (AddParticipantController) getController();
         controller.setOwnerStage(this);
         controller.setParticipant(participant);
         controller.setAddParticipantListener(obsPart -> {
             // Add participant to TableView
-            listener.onAdd(participant);
+            if (listener != null)
+                listener.onAdd(participant);
         });
     }
 
     private ParticipantDialog(String title, String layoutPath) {
         super(title, layoutPath);
+    }
+
+    public void setParticipant(ObsParticipant participant) {
+        controller.setParticipant(participant);
     }
 
     public void setAddListener(AddListener listener) {

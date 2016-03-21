@@ -6,12 +6,8 @@ import gui.listeners.SaveListener;
 import gui.models.ObsParticipant;
 import gui.windows.ParticipantDialog;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -124,7 +120,7 @@ public class DirectoryController extends BaseController implements DataBridge {
      */
     @FXML
     public void onAddParticipant() {
-        ParticipantDialog window = new ParticipantDialog(mStage);
+        ParticipantDialog window = new ParticipantDialog(mStage, "Add a new participant");
         window.setAddListener(participant -> {
             participantsData.add(participant);
 
@@ -142,7 +138,9 @@ public class DirectoryController extends BaseController implements DataBridge {
      */
     @FXML
     public void onModifyParticipant() {
-        ParticipantDialog window = new ParticipantDialog(mStage);
+        ParticipantDialog window = new ParticipantDialog(mStage, "Modify participant");
+        window.setParticipant(participantsTable.getSelectionModel().getSelectedItem());
+        window.showAndWait();
     }
 
     /**

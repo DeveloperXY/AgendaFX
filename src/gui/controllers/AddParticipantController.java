@@ -32,6 +32,12 @@ public class AddParticipantController extends BaseController {
 
     public void setParticipant(ObsParticipant participant) {
         this.participant = participant;
+
+        firstname.setText(participant.getFirstname());
+        lastname.setText(participant.getLastname());
+        phone.setText(participant.getPhoneNumber());
+        email.setText(participant.getEmail());
+        address.setText(participant.getAddress());
     }
 
     /**
@@ -70,7 +76,9 @@ public class AddParticipantController extends BaseController {
             participant.emailProperty().setValue(emailAddress);
             participant.addressProperty().setValue(adress);
 
-            listener.addParticipant(participant);
+            if (listener != null)
+                listener.addParticipant(participant);
+
             onCancel();
 
             return;
