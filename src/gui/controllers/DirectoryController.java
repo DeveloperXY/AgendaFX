@@ -1,9 +1,7 @@
 package gui.controllers;
 
-import gui.listeners.DataBridge;
-import gui.listeners.LoadListener;
-import gui.listeners.SaveListener;
 import gui.models.ObsParticipant;
+import gui.windows.RDVWindow;
 import gui.windows.dialogs.ParticipantDialog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -23,14 +21,8 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * The controller in charge of the ParticipantsWindow.
  */
-public class DirectoryController extends BaseController implements DataBridge {
+public class DirectoryController extends BaseController {
 
-    private LoadListener loadListener;
-    private SaveListener saveListener;
-    /**
-     * The data of the participants' TableView.
-     */
-    private ObservableList<ObsParticipant> participantsData;
     /**
      * A boolean property to whom the 'disableProperty' of the
      * "Delete entry" button is bound.
@@ -82,10 +74,11 @@ public class DirectoryController extends BaseController implements DataBridge {
     private void initialize() {
         disableDeleteBtnState = new SimpleBooleanProperty(false);
         disableModifyBtnState = new SimpleBooleanProperty(true);
-        participantsData = FXCollections.observableArrayList();
+
+        participantsTable.setItems(RDVWindow.getParticipants());
 
         // Set a listener on the TableView's data observableList
-        participantsData.addListener((ListChangeListener<ObsParticipant>) c -> {
+        RDVWindow.getParticipants().addListener((ListChangeListener<ObsParticipant>) c -> {
             while (c.next()) {
                 if (c.wasAdded()) {
                     if (disableDeleteBtnState.get())
@@ -123,7 +116,7 @@ public class DirectoryController extends BaseController implements DataBridge {
     public void onAddParticipant() {
         ParticipantDialog window = new ParticipantDialog(mStage, "Add a new participant");
         window.setAddListener(participant -> {
-            participantsData.add(participant);
+            RDVWindow.getParticipants().add(participant);
 
             // Scroll down to the last item after inserting it
             participantsTable.scrollTo(participantsTable.getItems().size());
@@ -164,20 +157,7 @@ public class DirectoryController extends BaseController implements DataBridge {
      */
     @FXML
     public void onExitDirectory() {
-        saveListener.saveParticipants(participantsTable.getItems());
         mStage.close();
-    }
-
-    /**
-     * Provides the TableView with initial participants data.
-     *
-     * @param participantsData
-     */
-    public void setParticipantsData(ObservableList<ObsParticipant> participantsData) {
-        if (participantsData != null)
-            this.participantsData = participantsData;
-
-        participantsTable.setItems(this.participantsData);
     }
 
     /**
@@ -189,13 +169,5 @@ public class DirectoryController extends BaseController implements DataBridge {
         executor.schedule(task, 5, TimeUnit.SECONDS);
 
         executor.shutdown();
-    }
-
-    public void setSaveListener(SaveListener listener) {
-        this.saveListener = listener;
-    }
-
-    public void setLoadListener(LoadListener listener) {
-        this.loadListener = listener;
     }
 }

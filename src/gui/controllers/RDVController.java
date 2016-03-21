@@ -1,8 +1,5 @@
 package gui.controllers;
 
-import gui.listeners.DataBridge;
-import gui.listeners.LoadListener;
-import gui.listeners.SaveListener;
 import gui.windows.ParticipantsWindow;
 import gui.windows.dialogs.RDVDialog;
 import javafx.application.Platform;
@@ -17,10 +14,7 @@ import java.util.Optional;
  * <p>
  * The controller in charge of the RDVWindow.
  */
-public class RDVController extends BaseController implements DataBridge {
-
-    private SaveListener saveListener;
-    private LoadListener loadListener;
+public class RDVController extends BaseController {
 
     /**
      * Closes the app, when clicking on the "Close" menu item.
@@ -42,9 +36,7 @@ public class RDVController extends BaseController implements DataBridge {
      */
     @FXML
     public void onShowDirectory() {
-        ParticipantsWindow window = new ParticipantsWindow(loadListener.getParticipants());
-        window.setSaveListener(saveListener::saveParticipants);
-        window.setLoadListener(loadListener::getParticipants);
+        ParticipantsWindow window = new ParticipantsWindow();
         window.show();
     }
 
@@ -60,13 +52,5 @@ public class RDVController extends BaseController implements DataBridge {
     @FXML
     public void onDeleteRDV() {
 
-    }
-
-    public void setSaveListener(SaveListener listener) {
-        this.saveListener = listener;
-    }
-
-    public void setLoadListener(LoadListener listener) {
-        this.loadListener = listener;
     }
 }
