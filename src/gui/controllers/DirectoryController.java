@@ -6,9 +6,7 @@ import gui.windows.dialogs.ParticipantDialog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -22,12 +20,6 @@ import java.util.concurrent.TimeUnit;
  * The controller in charge of the ParticipantsWindow.
  */
 public class DirectoryController extends BaseController {
-
-    /**
-     * A boolean property to whom the 'disableProperty' of the
-     * "Delete entry" button is bound.
-     */
-    private BooleanProperty disableDeleteBtnState;
     /**
      * A boolean property to whom the 'disableProperty' of the
      * "Modify entry" button is bound.
@@ -67,28 +59,12 @@ public class DirectoryController extends BaseController {
 
     @FXML
     private Button modifyParticipantBtn;
-    @FXML
-    private Button deleteParticipantBtn;
 
     @FXML
     private void initialize() {
-        disableDeleteBtnState = new SimpleBooleanProperty(false);
         disableModifyBtnState = new SimpleBooleanProperty(true);
 
         participantsTable.setItems(RDVWindow.getParticipants());
-
-        // Set a listener on the TableView's data observableList
-        RDVWindow.getParticipants().addListener((ListChangeListener<ObsParticipant>) c -> {
-            while (c.next()) {
-                if (c.wasAdded()) {
-                    if (disableDeleteBtnState.get())
-                        disableDeleteBtnState.setValue(false);
-                } else if (c.wasRemoved()) {
-                    if (!disableDeleteBtnState.get())
-                        disableDeleteBtnState.setValue(true);
-                }
-            }
-        });
 
         participantsTable.getSelectionModel()
                 .getSelectedCells()
@@ -99,7 +75,6 @@ public class DirectoryController extends BaseController {
                 });
 
         // Bind
-        deleteParticipantBtn.disableProperty().bind(disableDeleteBtnState);
         modifyParticipantBtn.disableProperty().bind(disableModifyBtnState);
 
         firstnameColumn.setCellValueFactory(cell -> cell.getValue().firstnameProperty());

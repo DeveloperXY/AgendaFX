@@ -1,6 +1,7 @@
 package gui.windows;
 
 import gui.controllers.RDVController;
+import gui.models.ObsParticipant;
 import gui.models.ObsRDV;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -9,13 +10,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import gui.models.ObsParticipant;
 
 import java.io.IOException;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 19/03/2016.
- *
+ * <p>
  * The starting point of the application.
  */
 public class RDVWindow extends Application {

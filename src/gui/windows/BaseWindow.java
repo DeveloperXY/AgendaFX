@@ -45,10 +45,10 @@ public abstract class BaseWindow extends Stage {
     /**
      * Overloaded constructor.
      *
-     * @param title of the window.
+     * @param title      of the window.
      * @param layoutPath the path of the window's FXML layout.
-     * @param owner window.
-     * @param modality of the window.
+     * @param owner      window.
+     * @param modality   of the window.
      */
     public BaseWindow(String title, String layoutPath, Window owner, Modality modality) {
         this(title, layoutPath);

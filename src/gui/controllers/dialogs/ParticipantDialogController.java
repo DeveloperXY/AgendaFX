@@ -1,10 +1,10 @@
 package gui.controllers.dialogs;
 
 import gui.controllers.BaseController;
+import gui.models.ObsParticipant;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import gui.models.ObsParticipant;
 
 /**
  * Created by Mohammed Aouf ZOUAG on 20/03/2016.

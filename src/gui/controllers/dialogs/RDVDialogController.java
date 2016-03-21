@@ -153,6 +153,11 @@ public class RDVDialogController extends BaseController {
             if (listener != null)
                 listener.addRDV(rdv);
 
+            System.out.println("WARNING: " + rdv.getParticipants());
+            System.out.println("WARNING: " + rdv.participantsNameProperty().get());
+
+            onCancel();
+
             return;
         } else if (!dateStatus)
             errorMessage = "Please choose a date for the RDV.\n";
