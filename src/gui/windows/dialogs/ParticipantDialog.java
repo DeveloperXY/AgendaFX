@@ -15,9 +15,7 @@ public class ParticipantDialog extends BaseWindow {
     private AddParticipantController controller;
 
     public ParticipantDialog(Window window, String title) {
-        this(title, "add_participant_dialog.fxml", window);
-
-        setResizable(false);
+        this(title, "participant_dialog.fxml", window);
 
         ObsParticipant participant = new ObsParticipant();
         controller = (AddParticipantController) getController();

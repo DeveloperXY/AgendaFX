@@ -14,7 +14,7 @@ import java.io.IOException;
  * <p>
  * A base class for all custom windows.
  */
-public class BaseWindow extends Stage {
+public abstract class BaseWindow extends Stage {
 
     private static final String BASE_LAYOUT_DIRECTORY = "/gui/layout/fxml/";
 
@@ -55,6 +55,8 @@ public class BaseWindow extends Stage {
 
         initModality(modality);
         initOwner(owner);
+
+        setResizable(false);
     }
 
     /**

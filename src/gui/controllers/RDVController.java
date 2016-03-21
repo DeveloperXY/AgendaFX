@@ -4,6 +4,7 @@ import gui.listeners.DataBridge;
 import gui.listeners.LoadListener;
 import gui.listeners.SaveListener;
 import gui.windows.ParticipantsWindow;
+import gui.windows.dialogs.RDVDialog;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -52,6 +53,12 @@ public class RDVController extends BaseController implements DataBridge {
      */
     @FXML
     public void onAddRDV() {
+        RDVDialog window = new RDVDialog(mStage, "Add a new RDV");
+        window.showAndWait();
+    }
+
+    @FXML
+    public void onDeleteRDV() {
 
     }
 
