@@ -30,11 +30,7 @@ public class ObsRDV {
         mParticipants = FXCollections.observableArrayList();
         mAddress = new SimpleStringProperty();
 
-        participantsNameProperty =
-                Bindings.createStringBinding(() -> mParticipants
-                        .stream()
-                        .map(p -> p.firstnameProperty().get())
-                        .collect(Collectors.joining(" - ")));
+        calculateParticipantNames();
     }
 
     public LocalDate getDate() {
@@ -83,5 +79,17 @@ public class ObsRDV {
 
     public void setAddress(String address) {
         this.mAddress.set(address);
+    }
+
+    public void calculateParticipantNames() {
+        participantsNameProperty =
+                Bindings.createStringBinding(() -> mParticipants
+                        .stream()
+                        .map(p -> p.firstnameProperty().get())
+                        .collect(Collectors.joining(" - ")));
+    }
+
+    public void removeParticipant(String name) {
+        mParticipants.removeIf(participant -> participant.getFirstname().equals(name));
     }
 }

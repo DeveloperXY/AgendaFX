@@ -67,6 +67,7 @@ public class RDVController extends BaseController {
     public void onShowDirectory() {
         ParticipantsWindow window = new ParticipantsWindow();
         window.show();
+        mStage.close();
     }
 
     /**

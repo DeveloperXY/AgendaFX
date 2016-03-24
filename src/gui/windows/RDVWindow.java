@@ -46,10 +46,9 @@ public class RDVWindow extends Application {
         mPrimaryStage = stage;
 
         initMainWindow();
-        setupStage();
     }
 
-    private void initMainWindow() throws IOException {
+    public void initMainWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/layout/fxml/rdv_window.fxml"));
         mBox = loader.load();
@@ -60,6 +59,8 @@ public class RDVWindow extends Application {
             e.consume();
             RDVController.onClose();
         });
+
+        setupStage();
     }
 
     private void setupStage() {

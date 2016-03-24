@@ -3,13 +3,16 @@ package gui.controllers;
 import gui.models.ObsParticipant;
 import gui.windows.RDVWindow;
 import gui.windows.dialogs.ParticipantDialog;
+import gui.windows.dialogs.RDVDialog;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -120,7 +123,32 @@ public class DirectoryController extends BaseController {
         int selectedIndex = participantsTable.getSelectionModel().getSelectedIndex();
 
         if (selectedIndex >= 0) {
+            String participant = participantsTable.getItems()
+                    .get(selectedIndex)
+                    .getFirstname();
             participantsTable.getItems().remove(selectedIndex);
+
+            System.out.println("FIRST: " + RDVWindow.getRDVs()
+                    .get(0).getParticipants().size());
+
+            RDVWindow.getRDVs()
+                    .stream()
+                    .filter(rdv -> rdv.getParticipants()
+                            .stream()
+                            .map(ObsParticipant::getFirstname)
+                            .anyMatch(name -> name.equals(participant)))
+                    .peek(rdv -> {
+                        rdv.removeParticipant(participant);
+                        rdv.calculateParticipantNames();
+                    })
+                    .forEach(rdv -> {
+                        if (rdv.getParticipants().size() == 0)
+                            RDVWindow.getRDVs().remove(rdv);
+                    });
+
+            System.out.println("SECOND: " + RDVWindow.getRDVs()
+                    .get(0).getParticipants().size());
+
         } else {
             statusLabel.setText("Please select a participant to delete.");
             resetStatusLabel();
@@ -133,6 +161,13 @@ public class DirectoryController extends BaseController {
     @FXML
     public void onExitDirectory() {
         mStage.close();
+
+        RDVWindow window = new RDVWindow();
+        try {
+            window.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
