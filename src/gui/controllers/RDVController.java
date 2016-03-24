@@ -85,6 +85,7 @@ public class RDVController extends BaseController {
             rdvStatusLabel.setText("RDV successfully scheduled.");
             resetStatusLabel();
         });
+        mStage.close();
         window.showAndWait();
     }
 
@@ -99,6 +100,17 @@ public class RDVController extends BaseController {
             rdvStatusLabel.setText("Please select an RDV to delete.");
             resetStatusLabel();
         }
+    }
+
+    @FXML
+    public void onModifyRDV() {
+        RDVDialog window = new RDVDialog(mStage, "Modify RDV");
+        window.setRDV(rdvsTable.getSelectionModel().getSelectedItem());
+        mStage.close();
+        window.showAndWait();
+
+        RDVWindow.getRDVs()
+                .forEach(ObsRDV::calculateParticipantNames);
     }
 
     /**

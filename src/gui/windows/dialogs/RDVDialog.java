@@ -21,10 +21,15 @@ public class RDVDialog extends BaseWindow {
         controller = (RDVDialogController) getController();
         controller.setOwnerStage(this);
         controller.setRDV(rdv);
+
         controller.setAddRDVListener(obsRDV -> {
             // Add RDV to TableView
             if (listener != null)
                 listener.onAdd(rdv);
+        });
+        setOnCloseRequest(e -> {
+            e.consume();
+            controller.onCancel();
         });
     }
 

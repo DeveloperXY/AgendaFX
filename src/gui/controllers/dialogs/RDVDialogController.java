@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.text.NumberFormat;
@@ -114,7 +115,14 @@ public class RDVDialogController extends BaseController {
     }
 
     @FXML
-    private void onCancel() {
+    public void onCancel() {
+        RDVWindow window = new RDVWindow();
+        try {
+            window.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         mStage.close();
     }
 
@@ -177,6 +185,12 @@ public class RDVDialogController extends BaseController {
     public void setRDV(ObsRDV rdv) {
         this.rdv = rdv;
 
+        datePicker.setValue(rdv.getDate());
+        durationSpinner.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        0, 120,
+                        rdv.getDuration() != null ?
+                                (int) rdv.getDuration().toMinutes() : SPINNER_DEFAULT_VALUE, 1));
         addresstext.setText(rdv.getAddress());
     }
 
