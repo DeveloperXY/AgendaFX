@@ -90,7 +90,15 @@ public class RDVController extends BaseController {
 
     @FXML
     public void onDeleteRDV() {
+        int selectedIndex = rdvsTable.getSelectionModel().getSelectedIndex();
 
+        if (selectedIndex >= 0) {
+            rdvsTable.getItems().remove(selectedIndex);
+
+        } else {
+            rdvStatusLabel.setText("Please select an RDV to delete.");
+            resetStatusLabel();
+        }
     }
 
     /**
